@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>輔助分組</title>
+  <style type="text/css">
+    body {
+      background-color: #222;
+      width: 80%;
+      margin: auto;
+    }
+
+    body,
+    input,
+    textarea {
+      font-family: "Microsoft JhengHei", Meiryo, "Malgun Gothic", tahoma,
+        Dotum, "MS PGothic", PMingLiu, sans-serif;
+      vertical-align: middle;
+      text-align: center;
+      color: #fff;
+    }
+
+    textarea,
+    input {
+      overflow-y: auto;
+      resize: none;
+      overflow: hidden;
+      margin: 4px;
+      border: 1px solid #777;
+      background-color: #26212b;
+      color: #fff;
+    }
+
+    fieldset {
+      border: 1px dashed #666;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #666;
+    }
+
+    #cut {
+      width: 40px;
+    }
+
+    legend {
+      color: #fff;
+    }
+  </style>
+
+  <script type="application/javascript">
+    function RAND() {
+      if (document.getElementById("cut4").checked) {
+        cut = 4;
+      } else {
+        cut = 3;
+      }
+
+      X = document
+        .getElementById("daifenzu")
+        .value.replace(/(^\s*)|(\s*$)/g, "")
+        .replace(/(\r\n)+/, "\n")
+        .replace(/\r+/, "\n")
+        .split(/\n+/)
+        .sort(function (a, b) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+      document.getElementById("abc").innerHTML = "";
+      for (
+        var i = 0, ii = 0, len = X.length / cut;
+        i < len;
+        i++ , ii = ii + cut
+      ) {
+        var para = document.createElement("textarea");
+        if (cut == 3) {
+          var node = X[ii] + "\n" + X[ii + 1] + "\n" + X[ii + 2];
+        } else {
+          var node =
+            X[ii] + "\n" + X[ii + 1] + "\n" + X[ii + 2] + "\n" + X[ii + 3];
+        }
+
+        node = document.createTextNode(node);
+        para.setAttribute("rows", cut + 1);
+        para.setAttribute("cols", "20");
+        para.appendChild(node);
+        document.getElementById("abc").appendChild(para);
+      }
+      document.getElementById("jieguo").value = X.join("\n");
+    }
+  </script>
+</head>
+
+<body>
+  <table width="100%">
+    <tr>
+      <td>
+        <fieldset>
+          <legend>待分組項目</legend>
+          <textarea cols="30" rows="4" id="daifenzu"></textarea><br />
+          <label><input type="radio" name="cut" id="cut4" value="4" checked="checked" />四項一組</label>
+          <label><input type="radio" name="cut" id="cut3" value="3" />三項一組</label><br />
+          <input type="button" value="隨機分組" onClick="RAND()" />
+        </fieldset>
+      </td>
+
+      <td>
+        <fieldset>
+          <legend>結果（保存用）</legend>
+          <textarea cols="30" rows="7" id="jieguo"></textarea>
+        </fieldset>
+      </td>
+    </tr>
+  </table>
+
+  <hr />
+  <fieldset>
+    <legend>結果展示</legend>
+    <div id="abc">
+      [待分組項目]：要分組的項目，每項一行<br />
+      【重要】[結果（保存用）]，需保存出來！
+    </div>
+  </fieldset>
+</body>
+
+</html>

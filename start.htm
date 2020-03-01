@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>超後臺</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #aaa;
+    }
+
+    body,
+    input,
+    textarea,
+    iframe {
+      text-align: center;
+      font-family: "Microsoft JhengHei", Meiryo, "Malgun Gothic", tahoma,
+        Dotum, "MS PGothic", PMingLiu, sans-serif;
+      vertical-align: middle;
+    }
+
+    iframe {
+      margin: 3px 2px;
+    }
+
+    iframe,
+    fieldset,
+    hr {
+      border: 1px solid #aaa;
+    }
+
+    textarea {
+      font-size: 12px;
+      resize: none;
+      border-radius: 5px;
+    }
+
+    #display_log {
+      width: 100%;
+      font-size: 12px;
+      height: 150px;
+      overflow-y: scroll;
+      display: block;
+      word-break: break-all;
+      border: 1px solid #aaa;
+    }
+
+    #tips {
+      width: 16%;
+      height: 50px;
+      background-color: #aaa;
+    }
+
+    #note {
+      width: 16%;
+      height: 50px;
+      background-color: #123;
+      color: #fff;
+    }
+
+    span {
+      border: 1px solid #aaa;
+      display: inline-block;
+      padding: 3px;
+      margin: 3px;
+      border-radius: 5px;
+    }
+
+    #clsInfo {
+      font-size: 12px;
+    }
+
+    input[type="text"] {
+      border-radius: 5px;
+      border: 0;
+      font-size: 14px;
+      padding: 3px;
+    }
+
+    input[type="button"] {
+      font-size: 14px;
+      border-radius: 5px;
+      border: 0;
+      background-color: #ccc;
+      color: #000;
+    }
+
+    .clsbox {
+      display: inline-block;
+      text-align: center;
+      background-color: #333;
+      font-size: 13px;
+      color: #fff;
+      padding: 4px;
+      margin: 2px;
+      border-radius: 10px;
+    }
+
+    .clsbox input {
+      font-size: 12px;
+      width: 80%;
+      background-color: #fff;
+      color: #000;
+    }
+
+    #ifr {
+      width: 50%;
+      height: 50px;
+    }
+
+    #pp {
+      width: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+本頁面要以下的GET變量
+cid=賽事ID
+rr=當前回合
+cls=組別數目
+csl=大會室
+startcls=初始大會室
+-->
+
+  <!--牌譜提交-->
+  <form action="start-sql.php" method="post" target="ifr" id="paipu_f" accept-charset="UTF-8">
+    <fieldset>
+      <legend>牌譜提交</legend>
+      <input type="button" value="複製各組情況" class="btn" data-clipboard-target="#tips" />
+      <input type="button" value="天鳳管理頁面" onClick="TH_ADMIN()" />
+      <input type="button" value="切換管理範圍" onClick="CHANGE_THIS()" />
+      <input type="button" value="保存信息" onClick="_SAVE()" />
+      <input type="button" value="清除保存" onClick="_REMOVE()" /> <br />
+      <textarea id="tips" onclick="select(this)" readonly>各組情況</textarea>
+      <iframe id="ifr" name="ifr"></iframe>
+      <textarea id="note">記事本</textarea> <br />
+      <input name="pp" type="text" id="pp" />
+      <input type="button" value="提交牌譜" onClick="PP_CK()" />
+      <input name="rr" type="hidden" id="rr" />
+      <input name="cid" type="hidden" id="cid" />
+    </fieldset>
+  </form>
+
+  <fieldset>
+    <legend>開始比賽</legend>
+    <span>
+      <input name="RANDOMSTART" type="checkbox" id="RANDOMSTART" checked />
+      <label for="RANDOMSTART">坐次隨機</label>
+    </span>
+    <span>
+      <input name="timeOut" type="text" id="timeOut" size="3" value="5" />
+      <label for="timeOut">秒後開始</label>
+    </span>
+    <span>
+      <label for="timeRestart">若失敗</label>
+      <input name="timeRestart" type="text" id="timeRestart" size="3" value="50" />
+      <label for="timeRestart">秒後重試</label>
+    </span>
+    <br />
+    <div id="div_class_start"></div>
+    <div id="display_log"></div>
+  </fieldset>
+
+  <script src="js/clipboard.min.js"></script>
+  <script src="js/cookies.js"></script>
+  <script>
+    new ClipboardJS(".btn");
+
+    //<!-----定義變量-----------------
+    var LOCL = window.location.search + "";
+    window.arg = [];
+    window.arg.CID = GET_STR(LOCL, "cid");
+    window.arg.RR = GET_STR(LOCL, "rr"); //第N囘戰
+    window.arg.CSL = GET_STR(LOCL, "csl"); //大會室
+    window.arg.CLS = GET_STR(LOCL, "cls"); //多少組
+    window.arg.STARTCLS = GET_STR(LOCL, "startcls"); //多少組
+    window.tips = {};
+
+    window.PN = []; //位置稱謂
+    window.ST = ["未開", "已錄", "已開", "結束"]; //狀態
+
+    window.classCount = []; //打到哪個位置
+    window.classStatus = [];
+    window.TM = [];
+    for (var i = 0; i <= window.arg.CLS; i++) {
+      window.classCount[i] = "0";
+      window.classStatus[i] = "0";
+      window.TM[i] = "00:00:00";
+    }
+
+    //----------定義變量------------------>
+
+    //----------定義函數------------------>
+
+    function setCookie(c_name, value, expiredays) {
+      var exdate = new Date();
+      exdate.setDate(exdate.getDate() + expiredays);
+      document.cookie =
+        c_name +
+        "=" +
+        escape(value) +
+        (expiredays == null ? "" : ";expires=" + exdate.toGMTString());
+    }
+
+    function getCookie(c_name) {
+      if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+          c_start = c_start + c_name.length + 1;
+          c_end = document.cookie.indexOf(";", c_start);
+          if (c_end == -1) c_end = document.cookie.length;
+          return unescape(document.cookie.substring(c_start, c_end));
+        }
+      }
+      return "";
+    }
+
+    function _SAVE() {
+      var r = confirm("保存信息至Cookies？");
+      if (r == false) {
+        return;
+      }
+      docCookies.setItem(
+        window.arg.CID + "_tips_" + window.arg.RR,
+        JSON.stringify(window.tips)
+      );
+      docCookies.setItem(
+        window.arg.CID + "_note_" + window.arg.RR,
+        document.getElementById("note").value
+      );
+    }
+
+    function _REMOVE() {
+      var r = confirm("清除保存的Cookies？");
+      if (r == false) {
+        return;
+      }
+      docCookies.removeItem(window.arg.CID + "_tips_" + window.arg.RR);
+      docCookies.removeItem(window.arg.CID + "_note_" + window.arg.RR);
+    }
+
+    function TH_ADMIN() {
+      window.open("http://tenhou.net/cs/edit/?C" + window.arg.CSL);
+    }
+
+    function CHANGE_THIS() {
+      var a = window.prompt(
+        "【切換管理範圍】\r\n請輸入要管理組別範圍，格式為：最小值 - 最大值\r\n【例】1-8",
+        "1-" + window.arg.CLS
+      );
+      if (a) {
+        var arr = a.split("-", 2);
+        window.location.href =
+          location.pathname +
+          "?cid=" +
+          window.arg.CID +
+          "&rr=" +
+          window.arg.RR +
+          "&csl=" +
+          window.arg.CSL +
+          "&cls=" +
+          arr[1] +
+          "&startcls=" +
+          arr[0];
+      } else return;
+    }
+
+    //定義-window.R2
+    function cs(o) {
+      if (!o || !o.RULE || !o.RULE.length) {
+        alert("後臺URL錯誤");
+        return;
+      }
+      var RULE = o.RULE.split(",");
+      window.R2 = RULE[2];
+    }
+
+    //獲取GET參數
+    function GET_STR(LOCL, name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var r = LOCL.substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
+    }
+
+    //初始化：修改稱謂列表+各組狀態，
+    function INIT(pn, stat, cnt, time) {
+      window.PN = pn.split("|");
+      window.classStatus = stat.split("|");
+      window.classCount = cnt.split("|");
+      window.TM = time.split("|");
+      displayClassInfo();
+      stopAutoStart(1);
+      if (docCookies.hasItem(window.arg.CID + "_tips_" + window.arg.RR)) {
+        window.tips = JSON.parse(
+          docCookies.getItem(window.arg.CID + "_tips_" + window.arg.RR)
+        );
+        document.getElementById("note").value = docCookies.getItem(
+          window.arg.CID + "_note_" + window.arg.RR
+        );
+        tips_refresh();
+      }
+    }
+
+    //獲取當前時間 00:00:00
+    function getNowFormatDate() {
+      var now = new Date();
+      var hour = now.getHours(); //得到小时
+      var minu = now.getMinutes(); //得到分钟
+      var sec = now.getSeconds(); //得到秒
+      if (hour < 10) {
+        hour = "0" + hour;
+      }
+      if (minu < 10) {
+        minu = "0" + minu;
+      }
+      if (sec < 10) {
+        sec = "0" + sec;
+      }
+      var currentdate = hour + ":" + minu + ":" + sec;
+      return currentdate;
+    }
+
+    //刷新提示框
+    function tips_refresh() {
+      document.getElementById("tips").value = "";
+      for (val in window.tips) {
+        document.getElementById("tips").value +=
+          val +
+          "組 " +
+          window.PN[window.tips[val][0]] +
+          " " +
+          window.tips[val][1] +
+          "\r\n----\r\n";
+      }
+    }
+
+    //<!--顯示列表式消息
+    function displayLog(cls, cnt, val) {
+      var new_span = document.createElement("span");
+      new_span.setAttribute("class", "info_class");
+      new_span.innerText = cls + "組";
+      document.getElementById("display_log").appendChild(new_span);
+      var new_span = document.createElement("span");
+      new_span.setAttribute("class", "info_class");
+      new_span.innerText = window.PN[cnt];
+      document.getElementById("display_log").appendChild(new_span);
+      var new_span = document.createElement("span");
+      new_span.setAttribute("class", "info_class");
+      new_span.innerText = getNowFormatDate();
+      document.getElementById("display_log").appendChild(new_span);
+      document
+        .getElementById("display_log")
+        .appendChild(document.createTextNode(val));
+      document
+        .getElementById("display_log")
+        .appendChild(document.createElement("hr"));
+      //刷新情況
+      window.tips[cls] = [];
+      window.tips[cls][0] = cnt;
+      window.tips[cls][1] = val;
+      tips_refresh();
+    }
+
+    //<!--提交到天鳳，開啓組別
+    function gameStart(x, m, data_count) {
+      //x=組別，m=開始字符串，
+      var timeOut = document.getElementById("timeOut").value;
+      var timeRestart = document.getElementById("timeRestart").value;
+
+      var getstr =
+        "start-posted-info.php?cid=" +
+        window.arg.CID +
+        "&cls=" +
+        x +
+        "&timeRestart=" +
+        timeRestart +
+        "&R2=" +
+        window.R2 +
+        "&M=" +
+        encodeURI(m) +
+        "&L=C" +
+        window.arg.CSL +
+        "&data_count=" +
+        data_count +
+        "&rr=" +
+        window.arg.RR;
+      document.getElementById("ifr_" + x).src = getstr;
+    } //提交到天鳳-->
+
+    //修改組別信息
+    function setClassInfo(cls, cnt, type) {
+      window.classStatus[cls] = type;
+      window.classCount[cls] = cnt;
+      window.TM[cls] = getNowFormatDate();
+      displayClassInfo();
+    }
+
+    //如果成功開始對局
+    function successfulStart(cls, cnt) {
+      setClassInfo(cls, cnt, 2);
+      displayLog(cls, cnt, "開賽成功");
+      top.stopAutoStart(cls);
+    }
+
+    //如果成功提交牌譜
+    function successfulSQL(cls, cnt) {
+      setClassInfo(cls, cnt, 1);
+      displayLog(cls, cnt, +"譜已交");
+    }
+    //如果此組結束
+    function classEnd(cls, cnt) {
+      setClassInfo(cls, cnt, 3);
+      displayLog(cls, cnt, "已結束");
+    }
+
+    //顯示組狀態信息
+    function displayClassInfo() {
+      if (window.arg.STARTCLS == null) {
+        var i = 1;
+      } else {
+        var i = window.arg.STARTCLS;
+      }
+      var a = null;
+      for (; i <= window.arg.CLS; i++) {
+        a =
+          window.PN[window.classCount[i]] +
+          "|" +
+          window.ST[window.classStatus[i]] +
+          "<br />" +
+          window.TM[i];
+        document.getElementById(
+          window.arg.CID + "_" + window.arg.RR + "_" + i
+        ).innerHTML = a;
+
+        //設成背景綠色
+        if (window.classStatus[i] == 1) {
+          document.getElementById("clsBG" + i).style.background = "#2b7e2d";
+        }
+
+        //設成背景紅色
+        if (window.classStatus[i] == 2) {
+          document.getElementById("clsBG" + i).style.background = "#8a314a";
+        }
+
+        //設成背景灰色
+        if (window.classStatus[i] == 3) {
+          document.getElementById("clsBG" + i).style.background = "#333";
+        }
+      }
+    }
+
+    function classStart(x) {
+      if (window.classStatus[x] >= 2) {
+        var msg =
+          "正常情況下，應在【提交牌譜】之後開始，但是" +
+          x +
+          "組狀態并非如此，請問要開始嗎？";
+        if (confirm(msg) === false) {
+          return;
+        }
+      }
+      if (document.getElementById("RANDOMSTART").checked) {
+        var RANDOMSTART = 1;
+      } else {
+        var RANDOMSTART = 0;
+      }
+
+      var timeOut = document.getElementById("timeOut").value;
+      var timeRestart = document.getElementById("timeRestart").value;
+      var getstr =
+        "start-same-class.php?cid=" +
+        window.arg.CID +
+        "&cls=" +
+        x +
+        "&rr=" +
+        window.arg.RR +
+        "&RANDOMSTART=" +
+        RANDOMSTART +
+        "&timeOut=" +
+        timeOut +
+        "&timeRestart=" +
+        timeRestart +
+        "&R2=" +
+        window.R2 +
+        "&csl=" +
+        window.arg.CSL;
+      if (document.getElementById("ifr_" + x)) {
+        //重試狂存在 ->刷新
+        document.getElementById("ifr_" + x).src = getstr;
+      } //不存在 ->建立新的框框
+      else {
+        var newIfr = document.createElement("iframe");
+        newIfr.src = getstr;
+        newIfr.id = "ifr_" + x;
+        newIfr.width = "200px";
+        document.body.appendChild(newIfr);
+      }
+    } //classStart结束-->
+
+    //終止自動循環開始
+    function stopAutoStart(x) {
+      if (document.getElementById("ifr_" + x)) {
+        document.body.removeChild(document.getElementById("ifr_" + x));
+      }
+    }
+
+    //<!--牌譜提交前檢查
+    function PP_CK() {
+      a = document.getElementById("pp").value;
+      a = a.replace(/(^\s+)|(\s+$)/g, "");
+      if (a == null || a == "") {
+        alert("請輸入牌譜");
+        return;
+      }
+      patt1 = new RegExp(/\d{10}gm\-[a-f\d]{4}\-\d{4,5}\-[a-f\d]{8}/gi);
+      a = patt1.exec(a);
+      document.getElementById("pp").value = a;
+      document.getElementById("paipu_f").submit();
+      document.getElementById("pp").value = "";
+    }
+
+    //寫入組別
+    if (window.arg.STARTCLS != null) {
+      var i = window.arg.STARTCLS;
+    } else {
+      var i = 1;
+    }
+    for (; i <= window.arg.CLS; i++) {
+      var new_div = document.createElement("div");
+      new_div.setAttribute("class", "clsbox");
+      new_div.setAttribute("id", "clsBG" + i);
+      var new_input = document.createElement("input");
+      new_input.setAttribute("id", "clsBT" + i);
+      new_input.setAttribute("type", "button");
+      new_input.setAttribute("value", i);
+      new_input.setAttribute("onClick", "classStart(" + i + ")");
+      var new_div1 = document.createElement("div");
+      new_div1.setAttribute(
+        "id",
+        window.arg.CID + "_" + window.arg.RR + "_" + i
+      );
+      new_div.appendChild(new_input);
+      new_div.appendChild(new_div1);
+      document.getElementById("div_class_start").appendChild(new_div);
+    }
+    var scr = document.createElement("iframe");
+    scr.setAttribute(
+      "src",
+      "start-init.php?cid=" +
+      window.arg.CID +
+      "&round=" +
+      window.arg.RR +
+      "&csl=" +
+      window.arg.CSL
+    );
+    scr.setAttribute("id", "ifr_1");
+    document.body.appendChild(scr);
+
+    document.getElementById("cid").value = window.arg.CID;
+    document.getElementById("rr").value = window.arg.RR;
+  </script>
+</body>
+
+</html>

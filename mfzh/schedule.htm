@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>明风智和杯</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+        onerror="this.href='/css/bootstrap.min.css'" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+
+    <nav id='my_nav' class="navbar navbar-expand-md navbar-dark nav_bg fixed-top">
+        <a class="navbar-brand" href="./">明风智和杯</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse rounded-lg" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.htm">赛事首页</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="schedule.htm">赛程</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="team.htm">联赛队伍</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rule.htm">规则</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ranking.htm">队伍排行榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mvp.htm">MVP榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../?cid=47#!ranking">比赛记录</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="myTab" class="bg-light">
+        <div class="container">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#rank1" role="tab">
+                        第一阶段
+                        <span class="nav_info">循环赛1-6轮</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#rank2" role="tab">
+                        第二阶段
+                        <span class="nav_info">易组对抗赛</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#rank3" role="tab">
+                        第三阶段
+                        <span class="nav_info">循环赛7-12轮</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#rank4" role="tab">
+                        第四阶段
+                        <span class="nav_info">季后赛</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="bg-dark text-light">
+        <div class="container">
+            <div class="tab-content bg-dark" id="myTabContent">
+                <div class="tab-pane fade show active" id="rank1" role="tabpanel">
+                    <button type="button" onclick="changeto('循环赛01轮',this)" class="tab_btn">第一轮</button>
+                    <button type="button" onclick="changeto('循环赛02轮',this)" class="tab_btn">第二轮</button>
+                    <button type="button" onclick="changeto('循环赛03轮',this)" class="tab_btn">第三轮</button>
+                    <button type="button" onclick="changeto('循环赛04轮',this)" class="tab_btn">第四轮</button>
+                    <button type="button" onclick="changeto('循环赛05轮',this)" class="tab_btn">第五轮</button>
+                    <button type="button" onclick="changeto('循环赛06轮',this)" class="tab_btn">第六轮</button>
+                </div>
+                <div class="tab-pane fade" id="rank2" role="tabpanel">
+                    <button type="button" onclick="changeto('易组对抗 玉',this)" class="tab_btn">易组对抗赛</button>
+                </div>
+                <div class="tab-pane fade" id="rank3" role="tabpanel">
+                    <button type="button" onclick="changeto('循环赛07轮',this)" class="tab_btn">第七轮</button>
+                    <button type="button" onclick="changeto('循环赛08轮',this)" class="tab_btn">第八轮</button>
+                    <button type="button" onclick="changeto('循环赛09轮',this)" class="tab_btn">第九轮</button>
+                    <button type="button" onclick="changeto('循环赛10轮',this)" class="tab_btn">第十轮</button>
+                    <button type="button" onclick="changeto('循环赛11轮',this)" class="tab_btn">第十一轮</button>
+                    <button type="button" onclick="changeto('循环赛12轮',this)" class="tab_btn">第十二轮</button>
+                </div>
+                <div class="tab-pane fade" id="rank4" role="tabpanel">
+                    <button type="button" onclick="changeto('总决赛',this)" class="tab_btn">季后赛</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="container text-light">
+            <br />
+            <h4 class="text-light" id="sch_title">循环赛01轮</h4>
+            <div>时间：<span id="sch_time"></span> 先锋14:00 副将19:00</div>
+            <div id="sch_text"></div>
+        </div>
+    </div>
+    <div id="markdowndata"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        onerror="this.src='/js/jquery.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        onerror="this.src='/js/bootstrap.bundle.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.7.0/marked.min.js"
+        onerror="this.src='/js/marked.min.js'"></script>
+    <script src="main.js"></script>
+    <script>
+        window.mydata;
+        $.get("https://g.mahjong.pub/day.md", function (data) {
+            document.getElementById('markdowndata').innerHTML = marked(data);
+            window.mydata = [];
+            window.mydata.schedule = [];
+            var mdata = document.getElementsByTagName('tr');
+            for (var i = 0; i < mdata.length; i++) {
+                var it = mdata[i].children[0].innerText;
+                if (!window.mydata.schedule[it]) {
+                    window.mydata.schedule[it] = [];
+                }
+                window.mydata.schedule[it].push([
+                    mdata[i].children[2].innerText,
+                    mdata[i].children[3].innerText,
+                    mdata[i].children[4].innerText,
+                    mdata[i].children[5].innerText,
+                    mdata[i].children[6].innerText
+                ]);
+            }
+            document.getElementById('markdowndata').setAttribute('class', 'display_none');
+            document.getElementById('rank1').children[0].click();
+        });
+
+        function changeto(lable, t) {
+            var teamimg = {
+                "晚成高校": "https://i.loli.net/2019/05/22/5ce5586d2c83843793.jpg",
+                "东白乐高校": "https://i.loli.net/2019/05/26/5cea81f47442084405.png",
+                "高遠原中學": "https://i.loli.net/2019/08/08/mGJp2POaEsxTMyL.png",
+                "琴南高校": "https://i.loli.net/2019/05/15/5cdbfc426172690841.jpeg",
+                "鹤贺学园": "https://i.loli.net/2019/05/19/5ce107067551a68516.png",
+                "宫守高校": "https://i.loli.net/2019/05/26/5cea7b64e77a533454.jpg",
+                "有珠山高校": "https://i.loli.net/2019/05/15/5cdc1496b7f9251560.jpg",
+                "永水高校": "https://i.loli.net/2019/05/20/5ce29bdead89751999.jpg",
+                "姬松高校": "https://i.loli.net/2019/05/23/5ce675a24c78499672.jpg",
+                "鹿老渡高校": "https://i.loli.net/2019/04/28/5cc59bfcd3011.png",
+                "千里山高校": "https://i.loli.net/2019/05/22/5ce4bb181017b41610.jpg",
+                "长者野高校": "https://i.loli.net/2019/08/11/NzQoKqYARJl3gdx.jpg",
+                "天童大高校": "https://i.loli.net/2019/04/28/5cc59b1a74461.jpg",
+                "三箇牧高校": "https://i.loli.net/2019/08/11/6mIMxivVU2RLoGc.png",
+                "春日野高校": "https://i.loli.net/2019/05/22/5ce4bf5fb73a119963.png",
+                "新道寺高校": "https://i.loli.net/2019/08/11/763BAh15ROuXpS9.jpg",
+                "剑谷高校": "https://i.loli.net/2019/08/11/dVbuckg1D27QA6W.png",
+                "临海高校": "https://i.loli.net/2019/05/20/5ce243179831c27872.jpg",
+                "清澄高校": "https://i.loli.net/2019/05/25/5ce8abdf89adc59709.jpg",
+                "花莳高校": "https://i.loli.net/2019/05/15/5cdaf0eb7b81385973.jpg",
+                "朝灼中学": "https://i.loli.net/2019/05/22/5ce4a515767b341179.jpg",
+                "阿知贺高校": "https://i.loli.net/2019/05/24/5ce7e5e28c42967039.png",
+                "平泷高校": "https://i.loli.net/2019/05/21/5ce3b625ed65096215.png",
+                "千代水高校": "https://i.loli.net/2019/05/15/5cdbdba3de18a99694.png",
+
+                "晚成": "https://i.loli.net/2019/05/22/5ce5586d2c83843793.jpg",
+                "东白乐": "https://i.loli.net/2019/05/26/5cea81f47442084405.png",
+                "高遠原": "https://i.loli.net/2019/08/08/mGJp2POaEsxTMyL.png",
+                "高远原": "https://i.loli.net/2019/08/08/mGJp2POaEsxTMyL.png",
+                "琴南": "https://i.loli.net/2019/05/15/5cdbfc426172690841.jpeg",
+                "鹤贺": "https://i.loli.net/2019/05/19/5ce107067551a68516.png",
+                "宫守": "https://i.loli.net/2019/05/26/5cea7b64e77a533454.jpg",
+                "有珠山": "https://i.loli.net/2019/05/15/5cdc1496b7f9251560.jpg",
+                "永水": "https://i.loli.net/2019/05/20/5ce29bdead89751999.jpg",
+                "姬松": "https://i.loli.net/2019/05/23/5ce675a24c78499672.jpg",
+                "鹿老渡": "https://i.loli.net/2019/04/28/5cc59bfcd3011.png",
+                "千里山": "https://i.loli.net/2019/05/22/5ce4bb181017b41610.jpg",
+                "长者野": "https://i.loli.net/2019/08/11/NzQoKqYARJl3gdx.jpg",
+                "天童大": "https://i.loli.net/2019/04/28/5cc59b1a74461.jpg",
+                "三箇牧": "https://i.loli.net/2019/08/11/6mIMxivVU2RLoGc.png",
+                "春日野": "https://i.loli.net/2019/05/22/5ce4bf5fb73a119963.png",
+                "新道寺": "https://i.loli.net/2019/08/11/763BAh15ROuXpS9.jpg",
+                "剑谷": "https://i.loli.net/2019/08/11/dVbuckg1D27QA6W.png",
+                "临海": "https://i.loli.net/2019/05/20/5ce243179831c27872.jpg",
+                "清澄": "https://i.loli.net/2019/05/25/5ce8abdf89adc59709.jpg",
+                "花莳": "https://i.loli.net/2019/05/15/5cdaf0eb7b81385973.jpg",
+                "朝灼": "https://i.loli.net/2019/05/22/5ce4a515767b341179.jpg",
+                "朝酌": "https://i.loli.net/2019/05/22/5ce4a515767b341179.jpg",
+                "阿知贺": "https://i.loli.net/2019/05/24/5ce7e5e28c42967039.png",
+                "平泷": "https://i.loli.net/2019/05/21/5ce3b625ed65096215.png",
+                "千代水": "https://i.loli.net/2019/05/15/5cdbdba3de18a99694.png"
+            };
+            var data = window.mydata.schedule[lable];
+            $('.tab_btn').removeClass('active');
+            t.setAttribute('class', 'tab_btn active');
+            document.getElementById('sch_time').innerText = data[0][0];
+            document.getElementById('sch_title').innerText = lable;
+            $('#sch_text').empty();
+            for (var i = 0; i < data.length; i++) {
+                var tr = ce(['div', 'class', 'row vs_div']);
+                for (var j = 1; j < 5; j++) {
+                    var td = ce(['div', 'class', 'col-3 text-center']);
+                    td.appendChild(ce(['img', 'class', 'mx-auto', 'src', teamimg[data[i][j]]]));
+                    td.appendChild(cet(['span', 'class', 'd-inline-block'], data[i][j]));
+                    tr.appendChild(td);
+                }
+                document.getElementById('sch_text').appendChild(tr);
+            }
+
+        }
+    </script>
+</body>
+
+
+</html>

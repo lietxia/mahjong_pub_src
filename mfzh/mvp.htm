@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>明风智和杯</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+        onerror="this.href='/css/bootstrap.min.css'" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+
+    <nav id='my_nav' class="navbar navbar-expand-md navbar-dark nav_bg fixed-top">
+        <a class="navbar-brand" href="./">明风智和杯</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse rounded-lg" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.htm">赛事首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="schedule.htm">赛程</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="team.htm">联赛队伍</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rule.htm">规则</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ranking.htm">队伍排行榜</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="mvp.htm">MVP榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../?cid=47#!ranking">比赛记录</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="mvp" class="content_table"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        onerror="this.src='/js/jquery.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        onerror="this.src='/js/bootstrap.bundle.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.7.0/marked.min.js"
+        onerror="this.src='/js/marked.min.js'"></script>
+    <script src="main.js"></script>
+    <script>
+        $.get("https://g.mahjong.pub/mvp.md", function (data) {
+            document.getElementById('mvp').innerHTML = marked(data);
+            $('#mvp table').addClass('table-striped')
+            $('#mvp tr:lt(7)').attr("class", "table-success");
+
+
+        });
+
+    </script>
+</body>
+
+
+</html>

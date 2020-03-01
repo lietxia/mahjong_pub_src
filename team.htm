@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>隊伍修改</title>
+  <script> //干掉傻逼的疼逊链接
+    (function () {
+      var patt = new RegExp(/(.+)[\?\&]tdsourcetag\=\w+$/);
+      var arr = patt.exec(window.location.href);
+      if (arr != null) {
+        window.location.href = arr[1];
+      }
+    }())
+  </script>
+  <link rel="stylesheet" type="text/css" href="css/team.css">
+</head>
+
+<body>
+  <input type="button" onclick="SAVE_EDIT()" value="保存更改" />
+  <input type="button" onclick="EXIT_CS()" id="exit" value="退賽" />
+  <h3 id="t_name">非法的訪問</h3>
+
+  <fieldset>
+    <legend>出場更變</legend>
+    這裏是出場順序，上下拖動改變順序
+    <ol id="all_player_list"></ol>
+    <input type="button" onClick="ADD_ID(false)" id="ADD_NEW_ID" value="輸入ID並添加" />
+    <input type="button" onClick="DEL_LAST_ID()" value="刪除最後的ID" />
+  </fieldset>
+  <input name="linkurl" type="hidden" id="linkurl" value="" />
+
+  <form id="upform">
+    <fieldset>
+      <legend>頭像設置</legend>
+
+      <img src="img/none.jpg" id="show_img" alt="隊伍頭像" width="140" height="140" />
+      <br />
+
+      <input type="file" name="smfile" id="smfile" /> <br />
+      <input type="button" onclick="LOCAL_UP_IMG()" value="本地上傳" />
+      <hr />
+      <input type="button" id="enter_url" onclick="ENTER_IMG()" value="或者輸入頭像URL" />
+      <br />
+    </fieldset>
+  </form>
+
+  <fieldset>
+    <legend>隊伍設置</legend>
+    隊伍簡介： <textarea name="t_ps" id="t_ps"></textarea>
+    <br />
+    鴿不鴿？：
+    <label>
+      <input type="checkbox" name="team_type" id="team_type" />一定不鴿
+    </label>
+
+  </fieldset>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/team.js"></script>
+  <script src="js/Sortable.min.js"></script>
+  <script>
+    Sortable.create(document.getElementById("all_player_list"), { group: "omega" });
+  </script>
+</body>
+
+</html>

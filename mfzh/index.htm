@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>明风智和杯</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+        onerror="this.href='/css/bootstrap.min.css'" />
+
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+        body {
+            margin-top: 0;
+        }
+
+        #my_banner {
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.7)
+        }
+
+        @media (min-width: 768px) {
+            .carousel-inner {
+                background-color: rgba(0, 0, 0, 0.5)
+            }
+
+            .carousel-inner img {
+                max-width: 1000px;
+                margin: 0 auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id='my_nav' class="navbar navbar-expand-md navbar-dark fixed-top">
+        <a class="navbar-brand" href="./">明风智和杯</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse rounded-lg" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.htm">赛事首页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="schedule.htm">赛程</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="team.htm">联赛队伍</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rule.htm">规则</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ranking.htm">队伍排行榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mvp.htm">MVP榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../?cid=47#!ranking">比赛记录</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="bd-example" id="my_banner">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="./" target="_blank"><img src="img/banner002.jpg" class="d-block w-100"></a>
+                    <div class="carousel-caption d-none d-md-block"> </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="img/medal.jpg" class="d-block w-100">
+                    <div class="carousel-caption d-none d-md-block"></div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="img/banner003.jpg" class="d-block w-100">
+                    <div class="carousel-caption d-none d-md-block"></div>
+                </div>
+                <div class="carousel-item">
+                    <a href="https://weibo.com/u/2030870751"><img src="img/weibo.jpg" class="d-block w-100"></a>
+                </div>
+            </div>
+
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div id="markdowndata"></div>
+    <div id="content1">
+        <div class="container">
+            <br />
+            <h4 class="text-light">近期赛程</h4>
+            <div id="schedule_div"></div>
+
+            <br />
+            <h4 class="text-light">直播入口</h4>
+
+            <div id="live_list" class="border rounded-sm p-2">
+            </div>
+        </div>
+        <br />
+
+    </div>
+
+    <div class="container text-light">
+        【比赛场】<br />
+        明風智和盃全國立直麻將網絡聯賽（赛事ID：111009）<br />
+        【日程】<br />
+        5月25日开赛，每周六14点先锋战，19点大将战<br />
+        【奖品】<br />
+        冠军：冠军水晶奖杯1个+6枚水晶奖牌<br />
+        亚军：亚军水晶奖杯1个+6枚水晶奖牌<br />
+        季军：季军水晶纪念奖杯1个<br />
+        奖金金额从冠军到十六强不等，详情见规则页<br />
+        【特殊规则】<br />
+        常规赛阶段负分不飞；异组及季后赛有飞人<br />
+        10w分起，每队5人，每人2次半庄，打分数接力赛<br />
+        常规赛阶段TOP南四局和牌、听牌流局均会连庄；<br />
+        易组对抗赛与季后赛大将南四TOP不连庄<br />
+        未说明的规则，以雀魂段位半庄规则为准。<br />
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        onerror="this.src='/js/jquery.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        onerror="this.src='/js/bootstrap.bundle.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.7.0/marked.min.js"
+        onerror="this.src='/js/marked.min.js'"></script>
+
+    <script src="main.js"></script>
+    <script src="nav.js"></script>
+    <script>
+        function get_tomorrow(i) {
+            var day3 = new Date();
+            day3.setTime(day3.getTime() + 86400000 * i);
+            var s3 = day3.getFullYear() + "年"
+                + (day3.getMonth() + 1) + "月"
+                + day3.getDate() + "日";
+            return s3;
+        }
+
+        $.get("https://g.mahjong.pub/day.md" + Math.random(), function (data) {
+            var target = document.getElementById('schedule_div');
+            var teamimg = {
+                "晚成高校": "https://i.loli.net/2019/05/22/5ce5586d2c83843793.jpg",
+                "东白乐高校": "https://i.loli.net/2019/05/26/5cea81f47442084405.png",
+                "高遠原中學": "https://i.loli.net/2019/08/08/mGJp2POaEsxTMyL.png",
+                "琴南高校": "https://i.loli.net/2019/05/15/5cdbfc426172690841.jpeg",
+                "鹤贺学园": "https://i.loli.net/2019/05/19/5ce107067551a68516.png",
+                "宫守高校": "https://i.loli.net/2019/05/26/5cea7b64e77a533454.jpg",
+                "有珠山高校": "https://i.loli.net/2019/05/15/5cdc1496b7f9251560.jpg",
+                "永水高校": "https://i.loli.net/2019/05/20/5ce29bdead89751999.jpg",
+                "姬松高校": "https://i.loli.net/2019/05/23/5ce675a24c78499672.jpg",
+                "鹿老渡高校": "https://i.loli.net/2019/04/28/5cc59bfcd3011.png",
+                "千里山高校": "https://i.loli.net/2019/05/22/5ce4bb181017b41610.jpg",
+                "长者野高校": "https://i.loli.net/2019/08/11/NzQoKqYARJl3gdx.jpg",
+                "天童大高校": "https://i.loli.net/2019/04/28/5cc59b1a74461.jpg",
+                "三箇牧高校": "https://i.loli.net/2019/08/11/6mIMxivVU2RLoGc.png",
+                "春日野高校": "https://i.loli.net/2019/05/22/5ce4bf5fb73a119963.png",
+                "新道寺高校": "https://i.loli.net/2019/08/11/763BAh15ROuXpS9.jpg",
+                "剑谷高校": "https://i.loli.net/2019/08/11/dVbuckg1D27QA6W.png",
+                "临海高校": "https://i.loli.net/2019/05/20/5ce243179831c27872.jpg",
+                "清澄高校": "https://i.loli.net/2019/05/25/5ce8abdf89adc59709.jpg",
+                "花莳高校": "https://i.loli.net/2019/05/15/5cdaf0eb7b81385973.jpg",
+                "朝灼中学": "https://i.loli.net/2019/05/22/5ce4a515767b341179.jpg",
+                "阿知贺高校": "https://i.loli.net/2019/08/11/gVwCZnSftHFBykR.png",
+                "平泷高校": "https://i.loli.net/2019/05/21/5ce3b625ed65096215.png",
+                "千代水高校": "https://i.loli.net/2019/05/15/5cdbdba3de18a99694.png",
+
+                "晚成": "https://i.loli.net/2019/05/22/5ce5586d2c83843793.jpg",
+                "东白乐": "https://i.loli.net/2019/05/26/5cea81f47442084405.png",
+                "高遠原": "https://i.loli.net/2019/08/08/mGJp2POaEsxTMyL.png",
+                "高远原": "https://i.loli.net/2019/08/08/mGJp2POaEsxTMyL.png",
+                "琴南": "https://i.loli.net/2019/05/15/5cdbfc426172690841.jpeg",
+                "鹤贺": "https://i.loli.net/2019/05/19/5ce107067551a68516.png",
+                "宫守": "https://i.loli.net/2019/05/26/5cea7b64e77a533454.jpg",
+                "有珠山": "https://i.loli.net/2019/05/15/5cdc1496b7f9251560.jpg",
+                "永水": "https://i.loli.net/2019/05/20/5ce29bdead89751999.jpg",
+                "姬松": "https://i.loli.net/2019/05/23/5ce675a24c78499672.jpg",
+                "鹿老渡": "https://i.loli.net/2019/04/28/5cc59bfcd3011.png",
+                "千里山": "https://i.loli.net/2019/05/22/5ce4bb181017b41610.jpg",
+                "长者野": "https://i.loli.net/2019/08/11/NzQoKqYARJl3gdx.jpg",
+                "天童大": "https://i.loli.net/2019/04/28/5cc59b1a74461.jpg",
+                "三箇牧": "https://i.loli.net/2019/08/11/6mIMxivVU2RLoGc.png",
+                "春日野": "https://i.loli.net/2019/05/22/5ce4bf5fb73a119963.png",
+                "新道寺": "https://i.loli.net/2019/08/11/763BAh15ROuXpS9.jpg",
+                "剑谷": "https://i.loli.net/2019/08/11/dVbuckg1D27QA6W.png",
+                "临海": "https://i.loli.net/2019/05/20/5ce243179831c27872.jpg",
+                "清澄": "https://i.loli.net/2019/05/25/5ce8abdf89adc59709.jpg",
+                "花莳": "https://i.loli.net/2019/05/15/5cdaf0eb7b81385973.jpg",
+                "朝灼": "https://i.loli.net/2019/05/22/5ce4a515767b341179.jpg",
+                "朝酌": "https://i.loli.net/2019/05/22/5ce4a515767b341179.jpg",
+                "阿知贺": "https://i.loli.net/2019/08/11/gVwCZnSftHFBykR.png",
+                "平泷": "https://i.loli.net/2019/05/21/5ce3b625ed65096215.png",
+                "千代水": "https://i.loli.net/2019/05/15/5cdbdba3de18a99694.png"
+            };
+
+            document.getElementById('markdowndata').innerHTML = marked(data);
+            var mydata = [];
+            var mdata = document.getElementsByTagName('tr');
+            for (var i = 0; i < mdata.length; i++) {
+                var it = mdata[i].children[2].innerText;
+                if (!mydata[it]) {
+                    mydata[it] = [];
+                }
+                mydata[it].push([
+                    mdata[i].children[0].innerText,
+                    mdata[i].children[3].innerText,
+                    mdata[i].children[4].innerText,
+                    mdata[i].children[5].innerText,
+                    mdata[i].children[6].innerText
+                ]);
+            }
+            window.mydata = mydata;
+            document.getElementById('markdowndata').setAttribute('class', 'display_none');
+
+            var next = 0;
+            var notfind = true;
+            while (notfind) {
+                var ndata = get_tomorrow(next);
+                if (typeof mydata[ndata] != 'undefined') {
+                    notfind = false;
+                }
+                if (next > 30) {
+                    notfind = false;
+                }
+                next++;
+            }
+            next--;
+            var thisdata = mydata[ndata];
+            //console.log('date', mydata[ndata]);
+
+            var maindiv = ce(['div', 'class', 'card']);
+            var cardheader = cet(['div', 'class', 'card-header'], ndata + '(' + next + '天后) ' + thisdata[0][0]);
+            maindiv.appendChild(cardheader);
+
+            for (var i = 0; i < thisdata.length; i++) {
+                var cardbody = ce(['div', 'class', 'card-body row align-middle']);
+                for (var j = 1; j < 5; j++) {
+                    var col1 = ce(['div', 'class', 'col-3 card_col']);
+                    var text1 = cet(['span', 'class', 'd-inline-block'], thisdata[i][j]);
+                    var img1 = ce(['img', 'class', 'col_img', 'src', teamimg[thisdata[i][j]]]);
+                    col1.appendChild(img1);
+                    col1.appendChild(text1);
+                    cardbody.appendChild(col1);
+
+                }
+                maindiv.appendChild(cardbody);
+                maindiv.appendChild(document.createElement('hr'));
+            }
+            target.appendChild(maindiv);
+            $('#schedule_div hr:last-child').remove();
+        });
+
+        $.getJSON("https://g.mahjong.pub/live.json", function (data) {
+            var live_img = data[0];
+            var live_href = data[1];
+            for (var i = 0; i < live_img.length; i++) {
+                var new_a = ce(['a', 'target', "_blank", 'href', live_href[i]]);
+                var new_img = ce(['img', 'src', live_img[i], 'class', 'rounded-sm live_img']);
+                new_a.appendChild(new_img);
+                document.getElementById('live_list').appendChild(new_a);
+            }
+        });
+
+    </script>
+
+</body>
+
+
+</html>

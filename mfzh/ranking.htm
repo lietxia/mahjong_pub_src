@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>明风智和杯</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+        onerror="this.href='/css/bootstrap.min.css'" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+
+    <nav id='my_nav' class="navbar navbar-expand-md navbar-dark nav_bg fixed-top">
+        <a class="navbar-brand" href="./">明风智和杯</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse rounded-lg" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.htm">赛事首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="schedule.htm">赛程</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="team.htm">联赛队伍</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rule.htm">规则</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="ranking.htm">队伍排行榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mvp.htm">MVP榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../?cid=47#!ranking">比赛记录</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="myTab" class="bg-light">
+        <div class="container">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#rank1" role="tab">总榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#rank2" role="tab">
+                        <span class="nav_info">明见万里(</span>明<span class="nav_info">)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#rank3" role="tab">
+                        <span class="nav_info">风华正茂(</span>风<span class="nav_info">)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#rank4" role="tab">
+                        <span class="nav_info">智珠在握(</span>智<span class="nav_info">)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#rank5" role="tab">
+                        <span class="nav_info">和衷共济(</span>和<span class="nav_info">)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="tab-content" id="myTabContent">
+        <div class="content_table tab-pane fade show active" id="rank1" role="tabpanel"></div>
+        <div class="content_table tab-pane fade" id="rank2" role="tabpanel"></div>
+        <div class="content_table tab-pane fade" id="rank3" role="tabpanel"> </div>
+        <div class="content_table tab-pane fade" id="rank4" role="tabpanel"></div>
+        <div class="content_table tab-pane fade" id="rank5" role="tabpanel"></div>
+    </div>
+
+    <div id="markdowndata"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        onerror="this.src='/js/jquery.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        onerror="this.src='/js/bootstrap.bundle.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.7.0/marked.min.js"
+        onerror="this.src='/js/marked.min.js'"></script>
+    <script src="main.js"></script>
+    <script>
+        $.get("https://g.mahjong.pub/pt.md?" + Math.random(), function (data) {
+            document.getElementById('markdowndata').innerHTML = marked(data);
+            $('#markdowndata table:eq(0) tr:lt(5)').attr("class", "table-success");
+            $('#markdowndata table:eq(1) tr:lt(5)').attr("class", "table-success");
+            $('#markdowndata table:eq(2) tr:lt(5)').attr("class", "table-success");
+            $('#markdowndata table:eq(3) tr:lt(5)').attr("class", "table-success");
+            $('#markdowndata table:eq(4)').addClass('table-striped')
+            var mydata = document.getElementsByTagName('table');
+            document.getElementById('rank2').appendChild(mydata[0]);
+            document.getElementById('rank3').appendChild(mydata[1]);
+            document.getElementById('rank4').appendChild(mydata[2]);
+            document.getElementById('rank5').appendChild(mydata[3]);
+            document.getElementById('rank1').appendChild(mydata[4]);
+            document.getElementById('markdowndata').innerHTML = '';
+        });
+
+        /*
+        function addtr(target, text, colspan, myclass) {
+        var tr = ce(['tr', 'class', myclass])
+        tr.appendChild(cet(['td', 'colspan', colspan], text))
+        $(target).after(tr)
+        }
+
+        $('div.content_table.active tr:lt(5)').attr("class","table-success");
+        //'bg-info text-light'
+        // addtr('div.content_table.active tr:eq(3)', '晉級線', 9 ,'bg-info text-light')
+        //$('div.content_table.active tr:eq(3)')
+        */
+
+
+    </script>
+</body>
+
+
+</html>

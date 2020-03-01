@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>大凤林-立直麻将赛事管理平台</title>
+  <link href="css/main.css" rel="stylesheet" type="text/css" />
+  <link href="css/theme.dark.min.css" rel="stylesheet" type="text/css" />
+  <!--
+  <link href="lib/live2d/css/live2d.css" rel="stylesheet" type="text/css" />
+  -->
+  <script>
+    (function () {//干掉傻逼的疼逊链接
+      var patt = new RegExp(/(.+)[\?\&]tdsourcetag\=\w+$/);
+      var arr = patt.exec(window.location.href);
+      if (arr != null) {
+        window.location.href = arr[1];
+      }
+    }())
+  </script>
+
+  <!-- 圖標 -->
+  <link rel="apple-touch-icon" sizes="57x57" href="icon/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="60x60" href="icon/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="icon/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="icon/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="icon/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="icon/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="icon/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="icon/apple-touch-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icon/apple-touch-icon-180x180.png" />
+  <link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="icon/favicon-194x194.png" sizes="194x194" />
+  <link rel="icon" type="image/png" href="icon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="icon/android-chrome-192x192.png" sizes="192x192" />
+  <link rel="icon" type="image/png" href="icon/favicon-16x16.png" sizes="16x16" />
+  <link rel="manifest" href="icon/manifest.json" />
+  <link rel="mask-icon" href="icon/safari-pinned-tab.svg" color="#5bbad5" />
+  <meta name="msapplication-TileColor" content="#b91d47" />
+  <meta name="msapplication-TileImage" content="icon/mstile-144x144.png" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="Bookmark" href="favicon.ico" />
+  <!-- 圖標 -->
+
+  <!-- 預加載 
+  <link rel="prefetch" href="lib/live2d/sound/s_100.mp3" />
+  <link rel="prefetch" href="lib/live2d/sound/s_101.mp3" />
+  <link rel="prefetch" href="lib/live2d/sound/s_102.mp3" />
+  <link rel="prefetch" href="lib/live2d/sound/s_103.mp3" />
+  <link rel="prefetch" href="lib/live2d/sound/s_104.mp3" />
+  <link rel="prefetch" href="lib/live2d/sound/s_105.mp3" />
+  <link rel="prefetch" href="lib/live2d/sound/s_106.mp3" />
+  -->
+</head>
+
+<body onhashchange="HC()">
+  <div id="banner">
+    <h1 id="title_h1"></h1>
+    <p id="title_p"></p>
+  </div>
+  <div id="nav">
+    <a href="#!rule">規則</a>
+    <a href="#!register">報名</a>
+    <a href="#!class">分組</a>
+    <a href="#!ranking">統計</a>
+    <a onclick="TEAM_LOGIN()">登入</a>
+    <a href="./">賽事</a>
+  </div>
+
+  <div id="display"></div>
+
+  <!--live2D
+  <div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="250" class="live2d" onclick="_AUDIO()"></canvas>
+    <div class="hide-button" id="live2d_hide" onclick="hide_live2d()">
+      關閉
+    </div>
+    <div class="hide-button" id="live2d_change" onclick="change_live2d()">
+      換裝
+    </div>
+    <div class="hide-button" id="to_top" onclick="to_top()">回頂部</div>
+    <audio id="audio"></audio>
+  </div>
+  live2D-->
+
+  <!--CDN2-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" crossorigin="anonymous"
+    onerror="this.src='js/jquery.min.js'"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js" crossorigin="anonymous"
+    onerror="this.src='js/marked.min.js'"></script>
+
+  <script charset="UTF-8" src="js/page_index.js"></script>
+  <script charset="UTF-8" src="js/page_rule.js"></script>
+  <script charset="UTF-8" src="js/page_register.js"></script>
+  <script charset="UTF-8" src="js/page_class.js"></script>
+  <script charset="UTF-8" src="js/page_rank.js"></script>
+
+  <script charset="UTF-8" src="js/main.js"></script>
+
+  <script charset="UTF-8" src="js/rank_team.js"></script>
+  <script charset="UTF-8" src="js/rank_table.js"></script>
+  <script charset="UTF-8" src="js/rank_player.js"></script>
+  <script charset="UTF-8" src="js/rank_chart.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"
+    crossorigin="anonymous" onerror="this.src='js/jquery.tablesorter.min.js'"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.widgets.min.js"
+    crossorigin="anonymous" onerror="this.src='js/jquery.tablesorter.widgets.min.js'"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.3.0/echarts.min.js" crossorigin="anonymous"
+    onerror="this.src='js/echarts.min.js'"></script>
+
+
+
+  <!--
+  <script>
+    //如果支持WEBGL,加看板娘
+    if (!!window.WebGLRenderingContext) {
+      var message_Path = "lib/live2d/";
+      var new_js = document.createElement("script");
+      new_js.setAttribute("src", "lib/live2d/js/live2d.js");
+      document.body.appendChild(new_js);
+      var new_js = document.createElement("script");
+      new_js.setAttribute("src", "lib/live2d/js/message.js");
+      document.body.appendChild(new_js);
+
+      var new_div = document.createElement("div");
+      new_div.innerText = "看板娘▲";
+      new_div.setAttribute("id", "btn_display_live2d");
+      new_div.setAttribute("onclick", "change_live2d()");
+      document.body.appendChild(new_div);
+
+      if (document.body.clientWidth < 765) {
+        $("#landlord").hide();
+      } else {
+        $("#btn_display_live2d").hide();
+        window.onload = function () {
+          change_live2d();
+        };
+      }
+    }
+  </script>
+-->
+
+
+  <script src="js/chalk.js"></script>
+
+  <img src="img/banner1.jpg" class="hidden" />
+  <img src="img/banner2.jpg" class="hidden" />
+  <img src="img/banner3.jpg" class="hidden" />
+  <img src="img/banner4.jpg" class="hidden" />
+</body>
+
+</html>

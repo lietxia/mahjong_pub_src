@@ -1,0 +1,98 @@
+body,
+input,
+textarea,
+option,
+select {
+  font-family: "Microsoft JhengHei", Meiryo, "Malgun Gothic", tahoma,
+    Dotum, "MS PGothic", PMingLiu, sans-serif;
+  vertical-align: middle;
+  outline: 0 none;
+}
+
+body {
+  background-color: #b0dda5;
+  margin-top: 30px;
+}
+
+.btnup {
+  background-color: #eee;
+  border-radius: 4em 0 0 4em;
+  border: 1px solid #333;
+  padding-left: 7px;
+  padding-right: 4px;
+}
+
+.btndn {
+  background-color: #eee;
+  border-radius: 0 4em 4em 0;
+  border: 1px solid #333;
+  border-left: none;
+  margin-right: 4px;
+  padding-right: 7px;
+  padding-left: 4px;
+}
+
+#success_up,
+#loading_up {
+  display: none;
+}
+
+.ls {
+  background-color: #353535;
+  color: #ffffff;
+  border-radius: 1em;
+  padding: 0 0.5em;
+}
+
+li {
+  margin: 0.3em 0;
+}
+
+fieldset {
+  padding: 10px;
+  margin: 10px;
+  color: #333;
+  border: #5c5c5c dashed 1px;
+}
+
+legend {
+  color: #414141;
+  font-weight: bold;
+}
+
+#exit {
+  float: right;
+}
+
+#nav a,
+#nav a:link,
+#nav a:hover,
+#nav a:active {
+  text-decoration: none;
+  color: #aaa;
+  padding: 0 10px;
+}
+
+#nav a:link,
+#nav a:visited {
+  color: #aaa;
+}
+
+#nav a:hover {
+  color: #3ff;
+}
+
+#nav {
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 99;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  overflow-y: hidden;
+  overflow: visible;
+  padding: 3px;
+}

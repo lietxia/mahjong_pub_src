@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>明风智和杯</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+        onerror="this.href='/css/bootstrap.min.css'" />
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+        #card_col {
+            column-count: 5;
+        }
+
+        @media (max-width: 767.98px) {
+            #card_col {
+                column-count: 4;
+            }
+        }
+
+        @media (max-width: 577px) {
+            #card_col {
+                column-count: 3;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id='my_nav' class="navbar navbar-expand-md navbar-dark nav_bg fixed-top">
+        <a class="navbar-brand" href="./">明风智和杯</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse rounded-lg" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.htm">赛事首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="schedule.htm">赛程</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="team.htm">联赛队伍</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rule.htm">规则</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ranking.htm">队伍排行榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mvp.htm">MVP榜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../?cid=47#!ranking">比赛记录</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br />
+    <div class="container">
+        <div class="card-columns" id="card_col"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        onerror="this.src='/js/jquery.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        onerror="this.src='/js/bootstrap.bundle.min.js'"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.7.0/marked.min.js"
+        onerror="this.src='/js/marked.min.js'"></script>
+    <script src="main.js"></script>
+    <script>
+        window.mydata;
+        $.getJSON('https://mahjong.pub/api/data.php?t=team&cid=47', function (data) {
+            console.log(data);
+            for (key in data) {
+                var maindiv = ce(['div', 'class', 'card text-center d-inline-block']);
+
+                maindiv.appendChild(ce(['img', 'class', 'card-img-top', 'src', data[key]['img']]));
+
+                var cardbody = ce(['div', 'class', 'card-body']);
+                cardbody.appendChild(cet(['div', 'class', 'card-text'], data[key]['t_name']));
+                maindiv.appendChild(cardbody);
+
+                var dropdown = ce(['div', 'class', "dropdown"]);
+                dropdown.appendChild(cet(['a',
+                    'class', 'btn btn-secondary dropdown-toggle btn-sm w-100',
+                    'role', "button",
+                    'href', "#",
+                    'data-toggle', "dropdown",
+                    'aria-haspopup', "true",
+                    'aria-expanded', "false"
+                ], '詳情'));
+                var dropdownmenu = ce(['div', 'class', "dropdown-menu", 'aria-labelledby', "dropdownMenuLink"]);
+                dropdownmenu.appendChild(cet(['pre'], data[key]['t_player']));
+                dropdownmenu.appendChild(document.createElement('hr'));
+                dropdownmenu.appendChild(cet(['pre'], data[key]['t_sub']));
+                dropdownmenu.appendChild(document.createElement('hr'));
+                dropdownmenu.appendChild(document.createTextNode(data[key]['t_ps']));
+                dropdown.appendChild(dropdownmenu);
+                maindiv.appendChild(dropdown);
+
+                document.getElementById('card_col').appendChild(maindiv);
+            }
+        })
+    </script>
+</body>
+
+
+</html>
