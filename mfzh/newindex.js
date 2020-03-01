@@ -1,4 +1,4 @@
-$.getJSON("./api/data.php?t=cs_list&cid=1", function (data) {
+$.getJSON("https://mahjong.pub/api/data.php?t=cs_list&cid=1", function (data) {
 
     var friendlylink = [
         ["【麻雀用品网店】牌友之家", "card_fans.png", "https://paiyouzhijia.taobao.com"],
@@ -54,7 +54,7 @@ $.getJSON("./api/data.php?t=cs_list&cid=1", function (data) {
         var new_img = ce(['img', "src", "https://p.qlogo.cn/gh/" + qqgrouplink[i][1] + '/' + qqgrouplink[i][1] + "/640"]);
         new_a.appendChild(new_img);
         new_a.appendChild(cet(['div'], qqgrouplink[i][0]));
-        var new_span = document.createElement('span');
+        //var new_span = document.createElement('span');
         new_a.appendChild(cet(['span'], qqgrouplink[i][1]));
 
         document.getElementById('offlineclub').appendChild(new_a)
@@ -66,7 +66,7 @@ $.getJSON("./api/data.php?t=cs_list&cid=1", function (data) {
         new_a.setAttribute("href", friendlylink[i][2]);
 
         var new_img = document.createElement('img');
-        new_img.setAttribute("src", "./img/" + friendlylink[i][1]);
+        new_img.setAttribute("src", "https://cdn.jsdelivr.net/lietxia/mahjong_pub_src/img/" + friendlylink[i][1]);
         new_img.setAttribute("class", "index_frendlylink");
         new_img.setAttribute("alt", friendlylink[i][0]);
         new_a.appendChild(new_img);
