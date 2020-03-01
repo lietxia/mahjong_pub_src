@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>隊伍修改</title>
-  <script> //干掉傻逼的疼逊链接
+  <script>
     (function () {
       var patt = new RegExp(/(.+)[\?\&]tdsourcetag\=\w+$/);
       var arr = patt.exec(window.location.href);
@@ -14,7 +14,7 @@
       }
     }())
   </script>
-  <link rel="stylesheet" type="text/css" href="css/team.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src/css/team.css">
 </head>
 
 <body>
@@ -35,7 +35,8 @@
     <fieldset>
       <legend>頭像設置</legend>
 
-      <img src="img/none.jpg" id="show_img" alt="隊伍頭像" width="140" height="140" />
+      <img src="https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src/img/none.jpg" id="show_img" alt="隊伍頭像" width="140"
+        height="140" />
       <br />
 
       <input type="file" name="smfile" id="smfile" /> <br />
@@ -56,9 +57,9 @@
     </label>
 
   </fieldset>
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/team.js"></script>
-  <script src="js/Sortable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src/js/team.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.10.2/Sortable.min.js" crossorigin="anonymous"></script>
   <script>
     Sortable.create(document.getElementById("all_player_list"), { group: "omega" });
   </script>

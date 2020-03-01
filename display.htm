@@ -9,11 +9,9 @@
 
 <body>
 	<script type="text/javascript">
-		function back_() {
-			if (window.ARGS[1] == "" || window.ARGS[1] == null)
-				window.history.go(-1);
-			else
-				window.location.href = window.ARGS[1];
+		function page_back() {
+			if (window.ARGS[1] == "" || window.ARGS[1] == null) { return window.history.go(-1); }
+			else { window.location.href = window.ARGS[1]; }
 		}//返回
 
 		window.ARGS = ["", ""];
@@ -23,7 +21,7 @@
 		}
 		else { document.write(decodeURIComponent(location.search.substring(1))); }
 	</script>
-	<hr /><input type="button" onclick="back_()" value="返回">
+	<hr /><input type="button" onclick="page_back()" value="返回">
 </body>
 
 </html>

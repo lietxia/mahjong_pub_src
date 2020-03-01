@@ -24,7 +24,7 @@ function SAVE_EDIT() {
     x += $(this).text() + "\n";
   });
   var linkurl = $("#show_img").attr("src");
-  linkurl = (linkurl == "img/none.jpg") ? "" : linkurl;
+  linkurl = (linkurl.substr(-12) == "img/none.jpg") ? "" : linkurl;
   var data = {
     "posttype": "update",
     "t_pw": window.ARGS.t_pw,
