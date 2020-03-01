@@ -8,12 +8,11 @@
 </head>
 
 <body>
-	<script type="text/javascript">
+	<script>
 		function page_back() {
 			if (window.ARGS[1] == "" || window.ARGS[1] == null) { return window.history.go(-1); }
 			else { window.location.href = window.ARGS[1]; }
-		}//返回
-
+		}
 		window.ARGS = ["", ""];
 		if (location.search.indexOf("|") > 0) {
 			window.ARGS = location.search.substring(1).split("|", 2);
@@ -21,7 +20,8 @@
 		}
 		else { document.write(decodeURIComponent(location.search.substring(1))); }
 	</script>
-	<hr /><input type="button" onclick="page_back()" value="返回">
+	<hr />
+	<input type="button" onclick="page_back()" value="返回">
 </body>
 
 </html>
