@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>管理台</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css' />
     <style>
         body,
         input,
@@ -45,14 +45,14 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js"></script>
     <script>
-        window.hosturl = (window.location.hostname.substr(-6) == "000.mk") ? "https://000.mk" : "https://mahjong.pub/";
+
         (function () {
             var patt = new RegExp(/(.+)[\?\&]tdsourcetag\=\w+$/);
             var arr = patt.exec(window.location.href);
             if (arr != null) {
                 window.location.href = arr[1];
             }
-            //
+            window.hosturl = (window.location.hostname.substr(-6) == "000.mk") ? "https://000.mk" : "https://mahjong.pub/";
             var querystr = [];
             if (querystr = document.location.hash.match(/\?cid=(\d+)&c_pw=(.+)/)) {
                 document.location.hash = "";
@@ -80,7 +80,7 @@
                     postarr[formarr[i].name] = formarr[i].value;
                 }
                 console.log(postarr);
-                $.post(window.hosturl + "post.php", postarr, function (data) {
+                $.post(window.hosturl + "api/admin_post.php", postarr, function (data) {
                     console.log(data);
                     //login();
                     alert(data.msg);
@@ -98,7 +98,7 @@
             window.mydata.cid = $("#login_cid").val();
             window.mydata.pw = $("#login_passwd").val();
 
-            $.post(window.hosturl + "post.php", {
+            $.post(window.hosturl + "api/admin_post.php", {
                 "posttype": "login",
                 "cid": window.mydata.cid,
                 "c_pw": window.mydata.pw
