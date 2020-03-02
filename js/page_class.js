@@ -20,7 +20,7 @@ function HC_CLS() {
     document.body.setAttribute("class", "bg_cyan");
     document.getElementById("title_h1").innerText = window.admin.c_name + " 分組";
     document.getElementById("title_p").innerText = "";
-    $("#banner").css("background-image", "url('https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src@latest/img/banner3.jpg')");
+    $("#banner").css("background-image", "url('https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src@1.0.2/img/banner3.jpg')");
 
     for (i = 1; i <= window.admin.c_round; i++) {
         var new_a = document.createElement("a");

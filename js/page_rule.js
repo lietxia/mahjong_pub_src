@@ -4,7 +4,7 @@ function HC_RULE() {
   document.getElementById("title_p").innerHTML = "";
   document.getElementById("title_h1").innerText = window.admin.c_name;
   document.body.setAttribute("class", "bg_black");
-  $("#banner").css("background-image", "url('https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src@latest/img/banner1.jpg')");
+  $("#banner").css("background-image", "url('https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src@1.0.2/img/banner1.jpg')");
 
   var new_a = document.createElement("a");
   new_a.setAttribute("href", "#!register");
