@@ -66,7 +66,7 @@ $.getJSON(window.hosturl + "api/data.php?t=cs_list&cid=1", function (data) {
         new_a.setAttribute("href", friendlylink[i][2]);
 
         var new_img = document.createElement('img');
-        new_img.setAttribute("src", "https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src@1.0.2/img/" + friendlylink[i][1]);
+        new_img.setAttribute("src", "https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src/img/" + friendlylink[i][1]);
         new_img.setAttribute("class", "index_frendlylink");
         new_img.setAttribute("alt", friendlylink[i][0]);
         new_a.appendChild(new_img);
