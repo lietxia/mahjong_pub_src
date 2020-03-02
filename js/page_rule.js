@@ -1,11 +1,10 @@
 function HC_RULE() {
-  //onHashChange_规则页
   var a = document.getElementById("display");
   a.innerHTML = "";
   document.getElementById("title_p").innerHTML = "";
   document.getElementById("title_h1").innerText = window.admin.c_name;
   document.body.setAttribute("class", "bg_black");
-  $("#banner").css("background-image", "url('img/banner1.jpg')");
+  $("#banner").css("background-image", "url('" + window.cdnurl + "img/banner1.jpg')");
 
   var new_a = document.createElement("a");
   new_a.setAttribute("href", "#!register");

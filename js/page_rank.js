@@ -1,6 +1,3 @@
-// JavaScript Document
-
-//回合切换
 function CHANGE_RND(rnd) {
   rnd = parseInt(rnd);
   if (window.location.hash === "#!ranking") {
@@ -37,32 +34,23 @@ function HC_RANK() {
     .replace(/\r/g, "\n");
   player_title = player_title.split("\n");
 
-  $("#banner").css("background-image", "url('img/banner2.jpg')");
+  $("#banner").css("background-image", "url('" + window.cdnurl + "img/banner2.jpg')");
   a.innerHTML = "";
   document.getElementById("title_h1").innerText = window.admin.c_name + " 統計";
-
   document.getElementById("title_p").innerText = "";
 
   //創建按鈕組
-  var new_a = document.createElement("a");
-  new_a.setAttribute("onclick", "CHANGE_TYPE('_Log_')");
-  new_a.innerText = "記錄";
-  document.getElementById("title_p").appendChild(new_a);
 
-  var new_a = document.createElement("a");
-  new_a.setAttribute("onclick", "CHANGE_TYPE('Chart')");
-  new_a.innerText = "圖表";
-  document.getElementById("title_p").appendChild(new_a);
-
-  var new_a = document.createElement("a");
-  new_a.setAttribute("onclick", "CHANGE_TYPE('Playe')");
-  new_a.innerText = "個人統計";
-  document.getElementById("title_p").appendChild(new_a);
-
-  var new_a = document.createElement("a");
-  new_a.setAttribute("onclick", "CHANGE_TYPE('_Team')");
-  new_a.innerText = "隊伍統計";
-  document.getElementById("title_p").appendChild(new_a);
+  var btns = {
+    "fn": ["CHANGE_TYPE('_Log_')", "CHANGE_TYPE('Chart')", "CHANGE_TYPE('Playe')", "CHANGE_TYPE('_Team')"],
+    "value": ["記錄", "圖表", "個人統計", "隊伍統計"]
+  };
+  for (var i = 0; i < btns.fn.length; i++) {
+    var new_a = document.createElement("a");
+    new_a.setAttribute("onclick", btns.fn[i]);
+    new_a.innerText = btns.value[i];
+    document.getElementById("title_p").appendChild(new_a);
+  }
 
   var new_hr = document.createElement("hr");
   document.getElementById("title_p").appendChild(new_hr);
@@ -85,7 +73,7 @@ function HC_RANK() {
 
   $.ajax({
     dataType: "json",
-    url: "api/data.php?t=c_data&cid=" + window.ARGS.cid + "&r=" + rnd,
+    url: window.hosturl + "/data.php?t=c_data&cid=" + window.ARGS.cid + "&r=" + rnd,
     error: function () {
       document.getElementById("display").innerText = "暫無數據";
     },
@@ -101,22 +89,18 @@ function HC_RANK() {
         tid: "0"
       };
       if (rank_type === "_Log_") {
-        //表格
         rank_log(a, rnd, player_title);
       }
       if (rank_type === "Chart") {
-        //折綫圖
         rank_chart(a, rnd, player_title);
       }
       if (rank_type === "Playe") {
-        //個人統計
         rank_player(a, rnd, 0, 0);
       }
       if (rank_type === "_Team") {
-        //隊分榜
         rank_team(a, rnd);
       }
     }
-  }); //ajax
+  });
 }
 

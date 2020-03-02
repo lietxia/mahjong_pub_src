@@ -1,7 +1,9 @@
 function HC_REG() {
   var a = document.getElementById("display");
   document.body.setAttribute("class", "bg_green");
-  $("#banner").css("background-image", "url('img/banner4.jpg')");
+
+  $("#banner").css("background-image", "url('" + window.cdnurl + "img/banner4.jpg')");
+
   document.getElementById("title_p").innerHTML =
     '<form id="form2" name="form2" method="get" action="join.php" onkeydown="if(event.keyCode==13)return false;"> <hr /> <label>輸入QQ號： <input type="text" name="qq" id="qq" onkeyup="value=value.replace(/[^\\d]/g,\'\') " /> </label> <input type="hidden" name="cid" id="cid" value="" /> <input type="hidden" name="tname" id="tname" value="" /> <input type="button" class="anniu" value="報名" onClick="JOIN_CS()" /> <hr /></form><h3>共有 <span id="max_team">0</span>個名額，已報名 <span id="join_cnt">0</span>隊 剩餘 <span id="remain">0</span>名額</h3> 報名自：<span id="start_time">0000-00-00 00:00:00</span> 至 <span id="end_time">0000-00-00 00:00:00</span>';
 
@@ -140,7 +142,6 @@ function HC_REG() {
   }
   document.getElementById("start_time").innerText = window.admin.bm_st;
   document.getElementById("end_time").innerText = window.admin.bm_ed;
-  //document.getElementById("title").innerText = window.admin.c_name;
   document.getElementById("join_cnt").innerText = parseInt(cnt_j - 1);
   if (window.admin.c_sub_t == -1) {
     window.admin.c_sub_t = "∞";

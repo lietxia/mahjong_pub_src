@@ -10,21 +10,6 @@ marked.setOptions({
 });
 
 function mk_img(img) {
-    /*
-    var e = document.createElement('img');
-    e.setAttribute("class", 'img');
-    if (img != null && img != "") {
-      e.setAttribute("src", img);
-      if (qq != 0 && qq != '0' && qq != '' && qq != null) {
-        e.setAttribute("onerror", 'this.e.setAttribute("src","http://q1.qlogo.cn/g?b=qq&s=640&nk=' + qq + '")');
-      } else {
-        e.setAttribute("onerror", 'this.style.display = "none"');
-      }
-    } else {
-      e.setAttribute("src", "http://q1.qlogo.cn/g?b=qq&s=640&nk=" + qq);
-      e.setAttribute("onerror", 'this.style.display = "none"');
-    }
-    */
     var e = document.createElement('img');
     e.setAttribute("class", 'img');
     if (img != null && img != "") {
@@ -33,7 +18,6 @@ function mk_img(img) {
     } else {
         e.setAttribute("class", 'hidden');
     }
-
     return e
 }
 
@@ -45,7 +29,6 @@ var reg = /(?:([^&=]+)=([^&]+))/g;
 while ((match = reg.exec(search)) !== null) {
     window.ARGS[match[1]] = match[2];
 }
-//window.location.href.match(/\?cid=(\d+)/gi)
 
 function ce(arr) {//创建元素
     if (!Array.isArray(arr) || arr.length < 1 || arr.length % 2 == 0) { return; }
@@ -55,24 +38,23 @@ function ce(arr) {//创建元素
     }
     return e;
 }
-function cet(arr,t) {//创建元素
+function cet(arr, t) {//创建元素
     if (!Array.isArray(arr) || arr.length < 1 || arr.length % 2 == 0) { return; }
     var e = document.createElement(arr[0]);
     for (var i = arr.length - 1; i >= 1; i -= 2) {
         e.setAttribute(arr[i - 1], arr[i]);
     }
-    e.innerText=t;
+    e.innerText = t;
     return e;
 }
 
 function _ABOUT(i) {
-    alert(window.team[i]["t_ps"]);
+    return alert(window.team[i]["t_ps"]);
 }
 
 //報名對話框
 function JOIN_CS() {
-    var TEAM_NAME = "";
-    TEAM_NAME = $.trim(prompt("請輸入隊名", ""));
+    var TEAM_NAME = $.trim(prompt("請輸入隊名", ""));
     if (TEAM_NAME != null && TEAM_NAME != "") {
         TEAM_NAME = encodeURI(TEAM_NAME);
         document.getElementById("qq").value = document
@@ -82,77 +64,67 @@ function JOIN_CS() {
         document.getElementById("form2").submit();
     }
 }
-//function end
 
 //登入
 function TEAM_LOGIN() {
-    var TEAM_PASS = null;
-    TEAM_PASS = prompt("請輸入隊伍密碼(Please enter your password)", "");
+    var TEAM_PASS = $.trim(prompt("請輸入隊伍密碼(Please enter your password)", ""));
     if (TEAM_PASS != null && TEAM_PASS != "") {
-        var a = "team.htm?t_pw=" + TEAM_PASS;
-        window.location.href = a;
+        return window.location.href = "team.htm?t_pw=" + TEAM_PASS;
     }
 }
 
 //onhashchangce
 function HC() {
-    //window.addEventListener("hashchange", HC, false);
+    var hash = window.location.hash;
 
-    if (
-        window.location.hash === "" ||
-        window.location.hash === null ||
-        window.location.hash === "#!rule"
-    ) {
-        HC_RULE();
+    if (hash == "#!register") {
+        return HC_REG();
     }
-    if (window.location.hash === "#!register") {
-        HC_REG();
+    if (hash.substr(2, 5) == "class") {
+        return HC_CLS();
     }
-    if (window.location.hash.substr(2, 5) === "class") {
-        HC_CLS();
+    if (hash.substr(2, 7) == "ranking") {
+        return HC_RANK();
     }
-    if (window.location.hash.substr(2, 7) === "ranking") {
-        HC_RANK();
-    }
+
+    return HC_RULE();
 }
 
 //初始化
-if (location.search != "" && location.search != null) {
+if (location.search == "" || location.search == null) {
+    page_index();
+} else {
     window.admin = [];
     window.team = [];
     window.cls = [];
-    $.getJSON("api/data.php?t=admin&cid=" + window.ARGS.cid, function (data) {
-        if (data == "") {
-            window.location.href = "./";
-        }
-        window.admin = data;
-        window.document.title = window.admin.c_name;
-        if (window.admin.c_gonggao === null || window.admin.c_gonggao === "") {
-            window.admin.c_gonggao = "暫無公告";
-        }
-        if (window.admin.c_pad === null || window.admin.c_pad === "") {
-            window.admin.c_pad = "暫無規則";
-        }
+    var datacount = 0;
+    $.getJSON(window.hosturl + "api/data.php?t=admin&cid=" + window.ARGS.cid,
+        function (data) {
+            if (data == "") { return window.location.href = "./"; }
+            window.admin = data;
+            window.document.title = window.admin.c_name;
+            if (window.admin.c_gonggao == null || window.admin.c_gonggao == "") {
+                window.admin.c_gonggao = "暫無公告";
+            }
+            if (window.admin.c_pad == null || window.admin.c_pad == "") {
+                window.admin.c_pad = "暫無規則";
+            }
+            datacount++;
+            if (datacount == 3) { HC(); }
+        })
 
-        $.ajax({
-            dataType: "json",
-            url: "api/data.php?t=team&cid=" + window.ARGS.cid,
-            success: function (data) {
-                window.team = data;
-                $.ajax({
-                    dataType: "json",
-                    url: "api/data.php?t=class&cid=" + window.ARGS.cid,
-                    success: function (data) {
-                        window.cls = data;
-                        HC();
-                    },
-                    error: HC()
-                });
-            },
-            error: HC()
-        });
-    });
-} else {
-    page_index();
+    $.getJSON(window.hosturl + "api/data.php?t=team&cid=" + window.ARGS.cid,
+        function (data) {
+            window.team = data;
+            datacount++;
+            if (datacount == 3) { HC(); }
+        })
+
+    $.getJSON(window.hosturl + "api/data.php?t=class&cid=" + window.ARGS.cid,
+        function (data) {
+            window.cls = data;
+            datacount++;
+            if (datacount == 3) { HC(); }
+        })
 }
 
