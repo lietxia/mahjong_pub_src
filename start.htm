@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh">
 
 <head>
@@ -127,7 +127,7 @@ startcls=初始大會室
 -->
 
   <!--牌譜提交-->
-  <form action="https://mahjong.pub/start-sql.php" method="post" target="ifr" id="paipu_f" accept-charset="UTF-8">
+  <form method="post" target="ifr" id="paipu_f" accept-charset="UTF-8">
     <fieldset>
       <legend>牌譜提交</legend>
       <input type="button" value="複製各組情況" class="btn" data-clipboard-target="#tips" />
@@ -166,9 +166,12 @@ startcls=初始大會室
   </fieldset>
 
   <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js"></script>
-  <script src="js/cookies.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src/js/cookies.js"></script>
   <script>
     new ClipboardJS(".btn");
+    window.hosturl = "https://mahjong.pub/";
+    document.getElementById("paipu_f").setAttribute('action', window.hosturl + "start-sql.php");
+
 
     //<!-----定義變量-----------------
     var LOCL = window.location.search + "";
