@@ -34,7 +34,7 @@ function HC_RANK() {
     .replace(/\r/g, "\n");
   player_title = player_title.split("\n");
 
-  $("#banner").css("background-image", "url('" + window.cdnurl + "img/banner2.jpg')");
+  $("#banner").css("background-image", "url('https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src@latest/img/banner2.jpg')");
   a.innerHTML = "";
   document.getElementById("title_h1").innerText = window.admin.c_name + " 統計";
   document.getElementById("title_p").innerText = "";

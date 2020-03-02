@@ -35,7 +35,7 @@ function SAVE_EDIT() {
     "team_type": $("#team_type").prop("checked") ? 1 : 0
   }
   $.ajax({
-    url: "team_post.php",
+    url: window.hosturl + "team_post.php",
     data: data,
     method: "POST",
     dataType: "json",
@@ -52,7 +52,7 @@ function EXIT_CS() {
         "t_pw": window.ARGS.t_pw,
       }
       $.ajax({
-        url: "team_post.php",
+        url: window.hosturl + "team_post.php",
         data: data,
         method: "POST",
         dataType: "json",
@@ -173,12 +173,12 @@ window.team = false;
 
 $.ajaxSettings.async = false;
 
-$.getJSON("api/data.php?t=tm_pw&cid=" + window.ARGS.t_pw, function (data) {
+$.getJSON(window.hosturl + "api/data.php?t=tm_pw&cid=" + window.ARGS.t_pw, function (data) {
   window.team = data;
   window.ARGS.cid = data.cid;
 });
 
-$.getJSON("api/data.php?t=admin&cid=" + window.ARGS.cid, function (data) {
+$.getJSON(window.hosturl + "api/data.php?t=admin&cid=" + window.ARGS.cid, function (data) {
   window.admin = data;
 });
 

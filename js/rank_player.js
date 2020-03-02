@@ -15,7 +15,7 @@ function MULTI_RND(i) {
             var tmpstr = "";
             tmpstr = rnds.join(",");
             $.getJSON(
-                "api/data.php?t=multi_log&cid=" + window.ARGS.cid + "&r=" + tmpstr,
+                window.hosturl + "api/data.php?t=multi_log&cid=" + window.ARGS.cid + "&r=" + tmpstr,
                 function (data) {
                     rank_player(a, 0, data, tmpstr);
                 }

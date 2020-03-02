@@ -1,4 +1,4 @@
-$.getJSON("https://mahjong.pub/api/data.php?t=cs_list&cid=1", function (data) {
+$.getJSON(window.hosturl + "api/data.php?t=cs_list&cid=1", function (data) {
 
     var friendlylink = [
         ["【麻雀用品网店】牌友之家", "card_fans.png", "https://paiyouzhijia.taobao.com"],

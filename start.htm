@@ -127,7 +127,7 @@ startcls=初始大會室
 -->
 
   <!--牌譜提交-->
-  <form action="start-sql.php" method="post" target="ifr" id="paipu_f" accept-charset="UTF-8">
+  <form action="https://mahjong.pub/start-sql.php" method="post" target="ifr" id="paipu_f" accept-charset="UTF-8">
     <fieldset>
       <legend>牌譜提交</legend>
       <input type="button" value="複製各組情況" class="btn" data-clipboard-target="#tips" />
@@ -179,7 +179,7 @@ startcls=初始大會室
     window.arg.CLS = GET_STR(LOCL, "cls"); //多少組
     window.arg.STARTCLS = GET_STR(LOCL, "startcls"); //多少組
     window.tips = {};
-    
+
     window.apiurl = "https://mahjong.pub/api/";
 
     window.PN = []; //位置稱謂
@@ -375,7 +375,7 @@ startcls=初始大會室
       var timeRestart = document.getElementById("timeRestart").value;
 
       var getstr =
-        "start-posted-info.php?cid=" +
+        window.hosturl + "start-posted-info.php?cid=" +
         window.arg.CID +
         "&cls=" +
         x +
@@ -475,7 +475,7 @@ startcls=初始大會室
       var timeOut = document.getElementById("timeOut").value;
       var timeRestart = document.getElementById("timeRestart").value;
       var getstr =
-        "start-same-class.php?cid=" +
+        window.hosturl + "start-same-class.php?cid=" +
         window.arg.CID +
         "&cls=" +
         x +

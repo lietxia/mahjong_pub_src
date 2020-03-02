@@ -71,7 +71,7 @@
     <script src="https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src/mfzh/main.js"></script>
     <script>
         window.mydata;
-        $.getJSON('https://mahjong.pub/api/data.php?t=team&cid=47', function (data) {
+        $.getJSON(window.hosturl +'api/data.php?t=team&cid=47', function (data) {
             console.log(data);
             for (key in data) {
                 var maindiv = ce(['div', 'class', 'card text-center d-inline-block']);
