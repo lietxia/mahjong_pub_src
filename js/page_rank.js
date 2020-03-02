@@ -73,7 +73,7 @@ function HC_RANK() {
 
   $.ajax({
     dataType: "json",
-    url: window.hosturl + "/data.php?t=c_data&cid=" + window.ARGS.cid + "&r=" + rnd,
+    url: window.hosturl + "data.php?t=c_data&cid=" + window.ARGS.cid + "&r=" + rnd,
     error: function () {
       document.getElementById("display").innerText = "暫無數據";
     },
