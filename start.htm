@@ -169,7 +169,7 @@ startcls=初始大會室
   <script src="https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src/js/cookies.js"></script>
   <script>
     new ClipboardJS(".btn");
-    window.hosturl = "https://mahjong.pub/";
+    window.hosturl = (window.location.hostname.substr(-6) == "000.mk") ? "https://000.mk" : "https://mahjong.pub/";
     document.getElementById("paipu_f").setAttribute('action', window.hosturl + "start-sql.php");
 
 
