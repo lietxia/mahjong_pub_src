@@ -12,7 +12,7 @@ function down_xls_step1(rnd) {
         document.body.appendChild(js);
     }
     var js2 = document.createElement('script');
-    js2.setAttribute('src', 'https://cdn.jsdelivr.net/npm/xlsx@0.15.5/dist/xlsx.min.js');
+    js2.setAttribute('src', 'https://cdn.jsdelivr.net/npm/xlsx@0.15.5/dist/xlsx.full.min.js');
     js2.setAttribute('id', 'xls_script');
     js2.setAttribute('onload', 'down_xls_step2(' + rnd + ')');
     document.body.appendChild(js2);
