@@ -160,116 +160,123 @@ function ADD_ID(newid) {//添加ID
   return
 }
 
-var args = {};
-var match = null;
-var search = decodeURIComponent(location.search.substring(1));
-var reg = /(?:([^&=]+)=([^&]+))/g;
-while ((match = reg.exec(search)) !== null) {
-  args[match[1]] = match[2];
-}
+(function () {
+  var args = {};
+  var match = null;
+  var search = decodeURIComponent(location.search.substring(1));
+  var reg = /(?:([^&=]+)=([^&]+))/g;
+  while ((match = reg.exec(search)) !== null) {
+    args[match[1]] = match[2];
+  }
 
-window.ARGS = args;
-window.team = false;
+  window.ARGS = args;
+  window.team = false;
 
-$.ajaxSettings.async = false;
 
-$.getJSON(window.hosturl + "api/data.php?t=tm_pw&cid=" + window.ARGS.t_pw, function (data) {
-  window.team = data;
-  window.ARGS.cid = data.cid;
-});
+  $.ajaxSettings.async = false;
 
-$.getJSON(window.hosturl + "api/data.php?t=admin&cid=" + window.ARGS.cid, function (data) {
-  window.admin = data;
-});
+  $.getJSON(window.hosturl + "api/data.php?t=tm_pw&cid=" + window.ARGS.t_pw, function (data) {
+    window.team = data;
+    window.ARGS.cid = data.cid;
+  });
 
-window.CAN_EDIT = true; //可以修改
+  $.getJSON(window.hosturl + "api/data.php?t=admin&cid=" + window.ARGS.cid, function (data) {
+    window.admin = data;
+  });
 
-if (!window.team) {
-  alert("密碼錯誤");
-  window.history.go(-1);
-}
+  window.CAN_EDIT = true; //可以修改
 
-//禁止修改
-if (window.admin.STOP_EDIT == 1) {
-  window.CAN_EDIT = false;
-}
+  if (!window.team) {
+    alert("密碼錯誤");
+    window.history.go(-1);
+  }
 
-/*
-//只能通過牌譜添加ID
-if (window.admin.ONLY_GET == 1) {
-  $("#ADD_NEW_ID").hide();
-}
-*/
+  //禁止修改
+  if (window.admin.STOP_EDIT == 1) {
+    window.CAN_EDIT = false;
+  }
 
-window.ARGS.cid = window.team.cid;
+  /*
+  //只能通過牌譜添加ID
+  if (window.admin.ONLY_GET == 1) {
+    $("#ADD_NEW_ID").hide();
+  }
+  */
 
-//讀取信息
-if (window.team.img != null && window.team.img != "") {
-  $("#show_img").attr("src", window.team.img);
-  $("#linkurl").val(window.team.img);
-}
-$("#t_ps").val(window.team.t_ps);
-var h3 = "［不鴿］";
+  window.ARGS.cid = window.team.cid;
 
-if (window.team.t_type == 1) {
-  $("#team_type").prop("checked", true);
-}
-if (window.team.t_type == 0) {
-  h3 = "［可能鴿］";
-}
+  //讀取信息
+  if (window.team.img != null && window.team.img != "") {
+    $("#show_img").attr("src", window.team.img);
+    $("#linkurl").val(window.team.img);
+  }
+  $("#t_ps").val(window.team.t_ps);
+  var h3 = "［不鴿］";
 
-if (window.team.t_type == null || window.team.t_type == "") {
-  h3 = "［已退賽］";
-  window.CAN_EDIT = false;
-}
+  if (window.team.t_type == 1) {
+    $("#team_type").prop("checked", true);
+  }
+  if (window.team.t_type == 0) {
+    h3 = "［可能鴿］";
+  }
 
-$("#t_name").text(window.admin.c_name + h3 + window.team.t_name);
-if (window.team.t_player == null) window.team.t_player = "";
-if (window.team.t_sub == null) window.team.t_sub = "";
+  if (window.team.t_type == null || window.team.t_type == "") {
+    h3 = "［已退賽］";
+    window.CAN_EDIT = false;
+  }
 
-window.playerlist = (
-  window.team.t_player +
-  "\n" +
-  window.team.t_sub
-).split(/\s+/);
+  $("#t_name").text("{" + window.team.tid + "}" + window.admin.c_name + h3 + window.team.t_name);
+  if (window.team.t_player == null) window.team.t_player = "";
+  if (window.team.t_sub == null) window.team.t_sub = "";
 
-var target_list = document.getElementById("all_player_list");
-if (window.playerlist.length == 0) {
-  var e = document.createElement('li');
-  target_list.appendChild(e)
-} else {
-  for (var i = 0; i < window.playerlist.length; i++) {
-    if (window.playerlist[i] != "") {
-      ADD_ID(window.playerlist[i]);
+  window.playerlist = (
+    window.team.t_player +
+    "\n" +
+    window.team.t_sub
+  ).split(/\s+/);
+
+  var target_list = document.getElementById("all_player_list");
+  if (window.playerlist.length == 0) {
+    var e = document.createElement('li');
+    target_list.appendChild(e)
+  } else {
+    for (var i = 0; i < window.playerlist.length; i++) {
+      if (window.playerlist[i] != "") {
+        ADD_ID(window.playerlist[i]);
+      }
     }
   }
-}
 
-//構建導航條
-var new_nav = document.createElement("div");
-new_nav.setAttribute("id", "nav");
-var link1 = document.createElement("a");
-link1.setAttribute("href", "./?cid=" + window.ARGS.cid + "#!rule");
-link1.innerText = "規則";
-var link2 = document.createElement("a");
-link2.setAttribute("href", "./?cid=" + window.ARGS.cid + "#!register");
-link2.innerText = "報名";
-var link3 = document.createElement("a");
-link3.setAttribute("href", "./?cid=" + window.ARGS.cid + "#!class");
-link3.innerText = "分組";
-var link4 = document.createElement("a");
-link4.setAttribute("href", "./?cid=" + window.ARGS.cid + "#!ranking");
-link4.innerText = "統計";
-var link5 = document.createElement("a");
-link5.setAttribute("onclick", "TEAM_LOGIN()");
-link5.innerText = "登入";
-var link6 = document.createElement("a");
-link6.setAttribute("href", "./");
-link6.innerText = "賽事";
-new_nav.appendChild(link1);
-new_nav.appendChild(link2);
-new_nav.appendChild(link3);
-new_nav.appendChild(link4);
-new_nav.appendChild(link5);
-new_nav.appendChild(link6);
-document.body.appendChild(new_nav);
+  //構建導航條
+
+  var new_nav = document.createElement("div");
+  new_nav.setAttribute("id", "nav");
+
+  var link1 = document.createElement("a");
+  link1.setAttribute("href", "./?cid=" + window.ARGS.cid + "#!rule");
+  link1.innerText = "規則";
+  var link2 = document.createElement("a");
+  link2.setAttribute("href", "./?cid=" + window.ARGS.cid + "#!register");
+  link2.innerText = "報名";
+  var link3 = document.createElement("a");
+  link3.setAttribute("href", "./?cid=" + window.ARGS.cid + "#!class");
+  link3.innerText = "分組";
+  var link4 = document.createElement("a");
+  link4.setAttribute("href", "./?cid=" + window.ARGS.cid + "#!ranking");
+  link4.innerText = "統計";
+  var link5 = document.createElement("a");
+  link5.setAttribute("onclick", "TEAM_LOGIN()");
+  link5.innerText = "登入";
+  var link6 = document.createElement("a");
+  link6.setAttribute("href", "./");
+  link6.innerText = "賽事";
+  new_nav.appendChild(link1);
+  new_nav.appendChild(link2);
+  new_nav.appendChild(link3);
+  new_nav.appendChild(link4);
+  new_nav.appendChild(link5);
+  new_nav.appendChild(link6);
+  document.body.appendChild(new_nav);
+
+})()
+
