@@ -187,7 +187,7 @@ function ADD_ID(newid) {//添加ID
     if (match == 2) { init(); }
   });
 
-})
+})()
 
 function init() {
 
