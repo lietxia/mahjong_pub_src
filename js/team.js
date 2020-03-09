@@ -172,21 +172,28 @@ function ADD_ID(newid) {//添加ID
   window.ARGS = args;
   window.team = false;
 
-
-  $.ajaxSettings.async = false;
+  match = 0;
 
   $.getJSON(window.hosturl + "api/data.php?t=tm_pw&cid=" + window.ARGS.t_pw, function (data) {
     window.team = data;
     window.ARGS.cid = data.cid;
+    match++;
+    if (match == 2) { init(); }
   });
 
   $.getJSON(window.hosturl + "api/data.php?t=admin&cid=" + window.ARGS.cid, function (data) {
     window.admin = data;
+    match++;
+    if (match == 2) { init(); }
   });
+
+})
+
+function init() {
 
   window.CAN_EDIT = true; //可以修改
 
-  if (!window.team) {
+  if (window.team === false) {
     alert("密碼錯誤");
     window.history.go(-1);
   }
@@ -277,6 +284,5 @@ function ADD_ID(newid) {//添加ID
   new_nav.appendChild(link5);
   new_nav.appendChild(link6);
   document.body.appendChild(new_nav);
-
-})()
+}
 
