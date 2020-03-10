@@ -177,14 +177,10 @@ function ADD_ID(newid) {//添加ID
   $.getJSON(window.hosturl + "api/data.php?t=tm_pw&cid=" + window.ARGS.t_pw, function (data) {
     window.team = data;
     window.ARGS.cid = data.cid;
-    match++;
-    if (match == 2) { init(); }
-  });
-
-  $.getJSON(window.hosturl + "api/data.php?t=admin&cid=" + window.ARGS.cid, function (data) {
-    window.admin = data;
-    match++;
-    if (match == 2) { init(); }
+    $.getJSON(window.hosturl + "api/data.php?t=admin&cid=" + window.ARGS.cid, function (data) {
+      window.admin = data;
+      init();
+    });
   });
 
 })()
