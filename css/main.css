@@ -58,6 +58,12 @@ textarea:focus {
     width: 100%;
 }
 
+
+#rule tr:nth-child(odd),
+#msg tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 hr {
     border: none;
     border-top: 1px dashed #999;
