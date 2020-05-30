@@ -14,16 +14,16 @@ select {
 }
 
 ::selection {
-    color: #ffffff;
+    color     : #ffffff;
     background: #b435c0;
 }
 
 body {
     background-color: #222;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 15px;
-    color: #fff;
+    margin          : 0 auto;
+    text-align      : center;
+    font-size       : 15px;
+    color           : #fff;
 }
 
 input:focus,
@@ -41,40 +41,42 @@ textarea:focus {
 
 #rule {
     text-align: left;
-    color: #aaa;
-    margin: 10px;
+    color     : #aaa;
+    margin    : 10px;
 }
 
 #msg {
-    color: #aaa;
+    color : #aaa;
     margin: 10px;
 }
 
 #rule table,
 #msg table {
-    border: 1px solid #777;
-    border-spacing: 0;
+    border         : 1px solid #777;
+    border-spacing : 0;
     border-collapse: collapse;
-    width: 100%;
+    width          : 100%;
 }
 
 
-#rule tr:nth-child(odd),
-#msg tr:nth-child(odd) {
+#rule tr:nth-child(even),
+#msg tr:nth-child(even),
+#msg thead,
+#rule thead {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
 hr {
-    border: none;
+    border    : none;
     border-top: 1px dashed #999;
 }
 
 .dash_hr {
     position: relative;
-    width: 100%;
-    top: 1.4em;
-    z-index: -1;
-    height: 1px;
+    width   : 100%;
+    top     : 1.4em;
+    z-index : -1;
+    height  : 1px;
 }
 
 .dash_hr_txt {
@@ -82,70 +84,70 @@ hr {
 }
 
 a {
-    color: #3ed9b3;
+    color          : #3ed9b3;
     text-decoration: none;
 }
 
 a:hover {
-    color: #4bfac3;
+    color      : #4bfac3;
     font-weight: bold;
 }
 
 .img {
     border-radius: 8px;
-    height: 128px;
-    width: 128px;
+    height       : 128px;
+    width        : 128px;
 }
 
 .bg_black {
     background-color: #222;
-    color: #fff;
+    color           : #fff;
 }
 
 .bg_green {
     background-color: #066;
-    color: #fff;
+    color           : #fff;
 }
 
 .bg_green input[type="text"] {
-    width: 100px;
-    transition: width 1s;
+    width           : 100px;
+    transition      : width 1s;
     background-color: transparent;
-    border-radius: 4em;
-    color: #66c6ff;
-    padding: 3px 12px;
-    border: 1px solid #66c6ff;
-    margin: 3px;
-    text-align: center;
+    border-radius   : 4em;
+    color           : #66c6ff;
+    padding         : 3px 12px;
+    border          : 1px solid #66c6ff;
+    margin          : 3px;
+    text-align      : center;
 }
 
 .bg_green input[type="text"]:hover {
     transition: width 1s;
-    width: 160px;
+    width     : 160px;
 }
 
 .bg_green table {
-    margin-top: 20px;
-    border: 0;
+    margin-top    : 20px;
+    border        : 0;
     border-spacing: 0;
-    width: 100%;
+    width         : 100%;
 }
 
 .bg_green table a {
-    color: #3ff;
+    color          : #3ff;
     text-decoration: underline;
 }
 
 .bg_green td {
-    font-size: 13px;
-    border-right: 1px solid rgb(58, 132, 134);
+    font-size    : 13px;
+    border-right : 1px solid rgb(58, 132, 134);
     border-bottom: 1px solid rgb(58, 132, 134);
-    padding: 6px 3px;
+    padding      : 6px 3px;
 }
 
 .bg_green th {
-    font-size: 15px;
-    border-top: none;
+    font-size    : 15px;
+    border-top   : none;
     border-bottom: 1px solid rgb(58, 132, 134);
 }
 
@@ -155,17 +157,17 @@ a:hover {
 }
 
 .anniu {
-    border: dashed #fff 1px;
-    width: 80px;
-    height: 25px;
-    border-radius: 4em;
+    border          : dashed #fff 1px;
+    width           : 80px;
+    height          : 25px;
+    border-radius   : 4em;
     background-color: transparent;
-    color: #fff;
+    color           : #fff;
 }
 
 .deled {
     text-decoration: line-through;
-    color: #ffb8f8;
+    color          : #ffb8f8;
 }
 
 .ready {
@@ -178,21 +180,21 @@ a:hover {
 
 .bg_cyan {
     background-color: #c6ece3;
-    color: #000;
+    color           : #000;
 }
 
 .bordered {
     border-spacing: 0;
-    width: 80%;
-    margin: 20px auto;
-    text-align: center;
-    color: #000;
-    font-size: 12px;
-    border: solid #aaa 1px;
-    border-radius: 6px;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-    background: #fff;
-    overflow: hidden;
+    width         : 80%;
+    margin        : 20px auto;
+    text-align    : center;
+    color         : #000;
+    font-size     : 12px;
+    border        : solid #aaa 1px;
+    border-radius : 6px;
+    box-shadow    : 0 3px 15px rgba(0, 0, 0, 0.2);
+    background    : #fff;
+    overflow      : hidden;
 }
 
 .bordered tr:nth-child(even) {
@@ -206,22 +208,22 @@ a:hover {
 .bordered td,
 .bordered th {
     border-left: 1px solid #ccc;
-    border-top: 1px solid #ccc;
-    padding: 3px;
+    border-top : 1px solid #ccc;
+    padding    : 3px;
 }
 
 .bordered td a {
-    color: #000c75;
+    color          : #000c75;
     text-decoration: underline;
 }
 
 .bordered th:first-child {
-    font-size: 15px;
+    font-size       : 15px;
     background-color: #dce9f9;
-    border-radius: 6px 6px 0 0;
+    border-radius   : 6px 6px 0 0;
     background-image: linear-gradient(top, #ebf3fc, #dce9f9);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
-    border-top: none;
+    box-shadow      : 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    border-top      : none;
 }
 
 .bordered td:first-child,
@@ -235,9 +237,9 @@ a:hover {
 }
 
 .h {
-    color: #000c75;
+    color      : #000c75;
     font-weight: bold;
-    word-break: break-all;
+    word-break : break-all;
 }
 
 .word_break {
@@ -246,49 +248,49 @@ a:hover {
 
 .head {
     background-color: #ac59ff;
-    color: #fff;
+    color           : #fff;
 }
 
 .lk:link,
 .lk:visited {
-    font-size: 13px;
-    float: right;
-    text-decoration: none;
+    font-size       : 13px;
+    float           : right;
+    text-decoration : none;
     background-color: #fff;
-    border-radius: 4em;
-    padding: 1px 10px;
-    margin-right: 4px;
-    color: #ac59ff;
-    font-weight: normal;
+    border-radius   : 4em;
+    padding         : 1px 10px;
+    margin-right    : 4px;
+    color           : #ac59ff;
+    font-weight     : normal;
 }
 
 .lk:hover {
     background-color: #639;
-    color: #fff;
+    color           : #fff;
 }
 
 .py {
-    position: relative;
-    left: 40px;
+    position : relative;
+    left     : 40px;
     font-size: 14px;
 }
 
 .lft {
-    font-size: 13px;
-    float: left;
+    font-size       : 13px;
+    float           : left;
     background-color: #fff;
-    border-radius: 4em;
-    padding: 1px 10px;
-    margin-right: 4px;
-    color: #ac59ff;
-    font-weight: normal;
+    border-radius   : 4em;
+    padding         : 1px 10px;
+    margin-right    : 4px;
+    color           : #ac59ff;
+    font-weight     : normal;
 }
 
 #banner {
     background-size: cover;
-    text-shadow: 0 1px 4px #000;
-    color: #fff;
-    padding: 20px;
+    text-shadow    : 0 1px 4px #000;
+    color          : #fff;
+    padding        : 20px;
 }
 
 #banner hr {
@@ -296,99 +298,99 @@ a:hover {
 }
 
 #banner a {
-    display: inline-block;
-    margin: 2px 5px;
-    color: rgb(255, 255, 255);
+    display         : inline-block;
+    margin          : 2px 5px;
+    color           : rgb(255, 255, 255);
     background-color: rgba(0, 0, 0, 0.3);
-    padding: 0 10px;
-    border-radius: 4em;
+    padding         : 0 10px;
+    border-radius   : 4em;
 }
 
 /*首页*/
 .bg_purple {
     background-color: #9b9bc1;
-    color: #fff;
+    color           : #fff;
 }
 
 .index_frendlylink {
     border-radius: 1em;
-    width: 150px;
-    height: 60px;
-    margin: 2px 5px;
+    width        : 150px;
+    height       : 60px;
+    margin       : 2px 5px;
 }
 
 .index_list a {
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
+    display         : inline-block;
+    text-decoration : none;
+    color           : #fff;
     background-color: #8484a4;
-    padding: 2px 12px;
-    border-radius: 1em;
-    margin: 4px 8px;
+    padding         : 2px 12px;
+    border-radius   : 1em;
+    margin          : 4px 8px;
 }
 
 .index_card {
-    color: #000;
+    color  : #000;
     display: inline-block;
     padding: 2px;
-    margin: 5px;
+    margin : 5px;
 }
 
 .index_card:hover {
-    border-radius: 1em;
+    border-radius   : 1em;
     background-color: #8484a4;
-    color: #000;
+    color           : #000;
 }
 
 .index_card div {
-    color: #fff;
+    color           : #fff;
     background-color: #313155;
-    border-radius: 8px;
-    padding: 2px 4px;
+    border-radius   : 8px;
+    padding         : 2px 4px;
 }
 
 .index_card img {
-    width: 100px;
-    height: 100px;
+    width        : 100px;
+    height       : 100px;
     border-radius: 1em;
 }
 
 .index_list a:hover {
-    color: #fff;
+    color           : #fff;
     background-color: #000000;
 }
 
 .bg_purple hr {
-    position: relative;
-    width: 100%;
-    top: 1.4em;
-    z-index: -1;
-    height: 1px;
-    border: none;
+    position  : relative;
+    width     : 100%;
+    top       : 1.4em;
+    z-index   : -1;
+    height    : 1px;
+    border    : none;
     border-top: 1px dashed #000;
 }
 
 .bg_purple .dash_hr_txt {
-    color: #000;
+    color           : #000;
     background-color: #9b9bc1;
 }
 
 #down_xls {
-    text-decoration: none;
+    text-decoration : none;
     background-color: #ebebeb;
-    padding: 2px 12px;
-    border-radius: 1em;
-    margin: 4px 8px;
-    border: 1px solid rgb(151, 151, 151)
+    padding         : 2px 12px;
+    border-radius   : 1em;
+    margin          : 4px 8px;
+    border          : 1px solid rgb(151, 151, 151)
 }
 
 #nav a,
 #nav a:link,
 #nav a:hover,
 #nav a:active {
-    text-decoration: none;
-    color: #aaa;
-    padding: 0 10px;
+    text-decoration : none;
+    color           : #aaa;
+    padding         : 0 10px;
     background-color: transparent;
 }
 
@@ -402,17 +404,17 @@ a:hover {
 }
 
 #nav {
-    font-size: 16px;
+    font-size       : 16px;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 5;
-    position: fixed;
-    text-align: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    overflow-y: hidden;
-    padding: 3px 0;
+    z-index         : 5;
+    position        : fixed;
+    text-align      : center;
+    top             : 0;
+    left            : 0;
+    width           : 100%;
+    height          : 20px;
+    overflow-y      : hidden;
+    padding         : 3px 0;
 }
 
 .txt_red {
@@ -424,7 +426,7 @@ a:hover {
 }
 
 #table_rankp {
-    width: 100%;
+    width     : 100%;
     overflow-x: scroll;
 }
 
@@ -439,31 +441,31 @@ a:hover {
 
 #display {
     max-width: 1200px;
-    margin: 0 auto;
+    margin   : 0 auto;
 }
 
 /*index-iframe*/
 
 .div_ios {
     -webkit-overflow-scrolling: touch;
-    overflow-y: scroll;
+    overflow-y                : scroll;
 }
 
 .scroll-wrapper {
 
-    z-index: 99;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    border: none;
+    z-index     : 99;
+    width       : 100%;
+    height      : 100%;
+    position    : fixed;
+    top         : 0;
+    left        : 0;
+    border      : none;
     /* important:  dimensions or positioning here! */
 }
 
 .scroll-wrapper iframe {
     border: none;
-    width: 100%;
+    width : 100%;
     height: 100%;
 }
 
@@ -494,7 +496,7 @@ a:hover {
 
     .img {
         height: 20vw;
-        width: 20vw;
+        width : 20vw;
     }
 
     .bordered {
