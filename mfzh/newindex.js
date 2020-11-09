@@ -20,7 +20,8 @@ $.getJSON(window.hosturl + "api/data.php?t=cs_list&cid=1", function (data) {
         ["深圳線下日麻", 461861930, "https://jq.qq.com/?_wv=1027&k=5vVh2x6"],
         ["泸州線下日麻", 669578617, "https://jq.qq.com/?_wv=1027&k=5Kg09UD"],
         ["南京線下日麻", 872957333, "https://jq.qq.com/?_wv=1027&k=527uO4p"],
-        ["昆明線下日麻", 370653876, "https://jq.qq.com/?_wv=1027&k=5DDlv1W"]
+        ["昆明線下日麻", 370653876, "https://jq.qq.com/?_wv=1027&k=5DDlv1W"],
+        ["沈阳線下日麻", 310806720, "https://jq.qq.com/?_wv=1027&k=ORBRRAYr"]
     ];
     var end_count = 0, running_count = 0;
     for (var i = 0; i < data.length; i++) {
