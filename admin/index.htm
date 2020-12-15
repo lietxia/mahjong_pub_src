@@ -52,7 +52,7 @@
             if (arr != null) {
                 window.location.href = arr[1];
             }
-            window.hosturl = (window.location.hostname.substr(-6) == "000.mk") ? "https://000.mk/" : "https://mahjong.pub/";
+            window.hosturl = "https://000.mk/";//window.hosturl = (window.location.hostname.substr(-6) == "000.mk") ? "https://000.mk/" : "https://mahjong.pub/";
             var querystr = [];
             if (querystr = document.location.hash.match(/\?cid=(\d+)&c_pw=(.+)/)) {
                 document.location.hash = "";
