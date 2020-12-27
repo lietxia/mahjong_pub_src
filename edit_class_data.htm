@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+		crossorigin="anonymous">
+
+	<title>編輯對戰記錄</title>
+
+</head>
+
+<body class="bg-dark my-4">
+	<div class="container">
+		<!--base data-->
+		<form class="card shadow">
+			<div class="card-header text-center" onclick="window.webobj.card_toggle(1,'card-body')">
+				讀取數據
+				<span id="hint1" class="d-none">(點此展開)</span>
+			</div>
+			<div class="card-body" id="card1">
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">CID</span>
+					</div>
+					<input type="text" id="login_cid" class="form-control" placeholder="赛事编号" value=""
+						onchange="document.getElementById('i_cid').value=this.value" />
+					<div class="input-group-prepend">
+						<span class="input-group-text">回合</span>
+					</div>
+					<input type="text" class="form-control" placeholder="数字" id="login_rnd" value=""
+						onchange="document.getElementById('i_rnd').value=this.value" />
+					<div class="input-group-prepend">
+						<span class="input-group-text">組別</span>
+					</div>
+					<input type="text" class="form-control" placeholder="数字" id="login_cls" value=""
+						onchange="document.getElementById('i_cls').value=this.value" />
+				</div>
+
+				<input type="button" class="btn btn-primary mt-3 btn-block" value="讀取數據"
+					onclick="window.webobj.login()" />
+			</div>
+		</form>
+
+
+		<form class="card mt-4 shadow" id="from2">
+			<div class="card-header text-center" onclick="window.webobj.card_toggle(2,'card-body')">
+				編輯對戰記錄
+				<span id="hint2" class="d-none">(點此展開)</span>
+				<input type="hidden" name="cid" id="i_cid" value="" />
+				<input type="hidden" name="cls" id="i_cls" value="" />
+				<input type="hidden" name="rnd" id="i_rnd" value="" />
+				<input type="hidden" name="type" id="i_type" value="" />
+			</div>
+			<div class="card-body" id="card2">
+				<!--start-->
+				<div id="log_div">
+				</div>
+				<!--end-->
+
+			</div>
+			<div class="card-footer">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<input type="button" class="btn btn-outline-info" value="添加新記錄"
+							onclick='if(confirm("添加新行後，想刪除多餘記錄只能刷新，要添加？"))window.webobj.add_log()' />
+					</div>
+
+					<input type="text" class="form-control" placeholder="密碼" name="pw" id="i_pw" value="" />
+					<div class="input-group-append">
+						<input type="button" class="btn btn-primary" value="修改對戰記錄" onclick="window.webobj.update()" />
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script>
+		window.webobj = {
+			log_count: 0,
+			api_url: "https://mahjong.city/",
+			login: function () {
+				var cid = parseInt(document.getElementById("login_cid").value);
+				var rnd = parseInt(document.getElementById("login_rnd").value);
+				var cls = parseInt(document.getElementById("login_cls").value);
+				if (isNaN(cid) || isNaN(rnd) || isNaN(cls)) { return alert("#請輸入CID，輪次，組別") }
+				return $.ajax(
+					{
+						url: window.webobj.api_url + "edit_class_json.php",
+						method: "POST",
+						data: {
+							"type": "login",
+							"cid": cid,
+							"rnd": rnd,
+							"cls": cls,
+						},
+						dataType: "json"
+					}
+				).done(function (json) {
+					if (!json.hasOwnProperty("status")) {
+						return alert("未知錯誤");
+					}
+					if (json.status != "2") {
+						return alert(json.status);
+					}
+					document.getElementById("i_type").value = "update";
+					document.getElementById("log_div").innerHTML = "";
+					window.webobj.log_count = 0;
+					window.webobj.add_log(json.data, true)
+					return alert("讀取成功");
+				}).fail(function () {
+					return alert("ajax error");
+				});
+			},
+			card_toggle: function (num, classname) {
+				var card = document.getElementById("card" + num);
+				var hint = document.getElementById('hint' + num);
+				if (classname == card.className) {
+					card.className = classname + " d-none";
+					hint.className = "text-danger";
+					return;
+				}
+				card.className = classname;
+				hint.className = "d-none";
+			},
+			update: function () {
+				if (document.getElementById("i_type").value === "") {
+					return alert("請先點「讀取數據」");
+				}
+				var arr1 = ["i_cid", "i_rnd", "i_cls", "i_pw"];
+				var arr2 = ["CID", "回合", "組別", "密碼"];
+				for (var i = arr1.length; i--;) {
+					var v = document.getElementById(arr1[i]).value;
+					if (v === "") { return alert(arr2[i] + "不能為空") }
+				}
+				return $.ajax(
+					{
+						url: window.webobj.api_url + "edit_class_json.php",
+						method: "POST",
+						data: $('#from2').serializeArray(),
+						dataType: "json"
+					}
+				).done(function (json) {
+					console.log(json);
+					if (!json.hasOwnProperty("status")) {
+						return alert("未知錯誤");
+					}
+					if (json.status != "2") {
+						return alert(json.status);
+					}
+					return alert(json.data);
+				}).fail(function () {
+					return alert("ajax error");
+				});
+			},
+			add_log: function (arr = [["", "", "", "", "", "", "", "", "", "", "", "", ""]]) {
+				//var arr = [["name1", "p1", "s1", "name2", "p2", "s2", "name3", "p3", "s3", "name4", "p4", "s4", "url"]];
+				var earr1 = ["選手名", "成績", "得失"];
+				var earr2 = ["name", "point", "score"];
+				var target = document.getElementById("log_div");
+				for (var k = 0; k < arr.length; k++) {
+					var main = document.createElement("div");
+					var h4 = document.createElement("h4");
+					h4.innerText = "#" + (++window.webobj.log_count);
+					main.appendChild(h4);
+					var div_row = document.createElement("div");
+					div_row.className = "form-row";
+					for (i = 1; i < 5; i++) {
+						var div_col = document.createElement("div");
+						div_col.className = "col";
+						var div_form_group = document.createElement("div");
+						div_form_group.className = "form-group";
+						for (var j = 0; j < 3; j++) {
+							var e = document.createElement("input");
+							e.className = "form-control form-control-sm mb-2";
+							e.setAttribute("placeholder", earr1[j])
+							e.setAttribute("name", earr2[j] + i + "[]");
+							e.setAttribute("value", arr[k][(i - 1) * 3 + j]);
+							div_form_group.appendChild(e);
+						}
+						div_col.appendChild(div_form_group);
+						div_row.appendChild(div_col);
+					}
+					main.appendChild(div_row);
+					var div_group = document.createElement("div");
+					div_group.className = "input-group mb-3 input-group-sm";
+					var div_pre = document.createElement("div");
+					div_pre.className = "input-group-prepend";
+					var span = document.createElement("span");
+					span.className = "input-group-text";
+					span.innerText = "牌譜";
+					div_pre.appendChild(span);
+					div_group.appendChild(div_pre);
+					var i_url = document.createElement("input");
+					i_url.className = "form-control";
+					i_url.setAttribute("name", "logurl[]");
+					i_url.setAttribute("placeholder", "https://...");
+					i_url.setAttribute("value", arr[k][12])
+					div_group.appendChild(i_url);
+					main.appendChild(div_group);
+					target.appendChild(main);
+				}
+			}
+		}
+	</script>
+</body>
+
+</html>
