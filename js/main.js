@@ -62,7 +62,7 @@ function JOIN_CS() {
     return window.open(
         window.hosturl + "join.php?cid="
         + window.ARGS.cid + "&qq="
-        + qq + "$tname=" + team_name,
+        + qq + "&tname=" + team_name,
         "_blank");
 }
 
