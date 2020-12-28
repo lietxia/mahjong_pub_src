@@ -54,15 +54,16 @@ function _ABOUT(i) {
 
 //報名對話框
 function JOIN_CS() {
-    var TEAM_NAME = $.trim(prompt("請輸入隊名", ""));
-    if (TEAM_NAME != null && TEAM_NAME != "") {
-        TEAM_NAME = encodeURI(TEAM_NAME);
-        document.getElementById("qq").value = document
-            .getElementById("qq")
-            .value.replace(/[^\d]/g, "");
-        document.getElementById("tname").value = TEAM_NAME;
-        document.getElementById("form2").submit();
+    var team_name = decodeURI($.trim(document.getElementById("tname").value));
+    var qq = document.getElementById("qq").value.replace(/[^\d]/g, "");
+    if (team_name == "" || qq == "") {
+        return alert("隊名不能為空,QQ只能是數字");
     }
+    return window.open(
+        window.hosturl + "join.php?cid="
+        + window.ARGS.cid + "&qq="
+        + qq + "$tname=" + team_name,
+        "_blank");
 }
 
 //登入

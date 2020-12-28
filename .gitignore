@@ -4,7 +4,11 @@ ehthumbs.db
 Desktop.ini
 *.log
 /tmp/
+/conf/
+/lib/
 .user.ini
+*.php
+*.sh
 
 # General
 .DS_Store
