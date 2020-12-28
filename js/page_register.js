@@ -5,7 +5,7 @@ function HC_REG() {
   $("#banner").css("background-image", "url('https://cdn.jsdelivr.net/gh/lietxia/mahjong_pub_src/img/banner4.jpg')");
 
   document.getElementById("title_p").innerHTML =
-    '<form id="form2"> <hr /> <label>隊名： <input type="text" name="tname" id="tname" /><br /></label> <label>ＱＱ號： <input type="text" name="qq" id="qq" /> </label> <input type="hidden" name="cid" id="cid" value="" /><br /><input type="button" class="anniu" value="報名" onClick="JOIN_CS()" /> <hr /> </form> <h3>共有 <span id="max_team">0</span>個名額，已報名 <span id="join_cnt">0</span>隊 剩餘 <span id="remain">0</span>名額 </h3> 報名自：<span id="start_time">0000-00-00 00:00:00</span> 至<span id="end_time">0000-00-00 00:00:00</span>';
+    '<form id="form2"> <hr /> <label>隊伍名: <input type="text" name="tname" id="tname" /><br /></label> <label>ＱＱ號: <input type="text" name="qq" id="qq" /> </label> <input type="hidden" name="cid" id="cid" value="" /><br /><input type="button" class="anniu" value="報名" onClick="JOIN_CS()" /> <hr /> </form> <h3>共有 <span id="max_team">0</span>個名額，已報名 <span id="join_cnt">0</span>隊 剩餘 <span id="remain">0</span>名額 </h3> 報名自：<span id="start_time">0000-00-00 00:00:00</span> 至<span id="end_time">0000-00-00 00:00:00</span>';
 
   a.innerHTML = "";
   document.getElementById("title_h1").innerText = window.admin.c_name + " 報名";
