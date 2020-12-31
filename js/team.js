@@ -1,6 +1,6 @@
 window.webobj = {
 	can_edit: true,
-	apiurl: "./",
+	apiurl: "https://000.mk/",
 	teamdata: {},
 	admin: {},
 	args: {},
