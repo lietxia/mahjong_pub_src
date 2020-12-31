@@ -51,43 +51,37 @@
   </style>
 
   <script>
-    function RAND() {
-      if (document.getElementById("cut4").checked) {
-        cut = 4;
-      } else {
-        cut = 3;
+    function data_random() {
+      var cut = (document.getElementById("cut4").checked) ? 4 : 3;
+      var arr2 = document.getElementById("sort_result").value
+        .replace(/\r/g, "\n")
+        .split(/\n+/);
+      var arr = [];
+      for (var i = 0; i < arr2.length; i++) {
+        var e = arr2[i].replace(/^\s+|\s+$/g, "");
+        if (e != "") { arr.push(e); }
       }
-
-      X = document
-        .getElementById("daifenzu")
-        .value.replace(/(^\s*)|(\s*$)/g, "")
-        .replace(/(\r\n)+/, "\n")
-        .replace(/\r+/, "\n")
-        .split(/\n+/)
-        .sort(function (a, b) {
-          return Math.random() > 0.5 ? -1 : 1;
-        });
-      document.getElementById("abc").innerHTML = "";
+      arr.sort(function (a, b) {
+        return Math.random() > 0.5 ? -1 : 1;
+      });
+      //console.log(arr, arr.length / cut);
+      document.getElementById("result_content").innerHTML = "";
       for (
-        var i = 0, ii = 0, len = X.length / cut;
+        var i = 0, j = 0, len = arr.length / cut;
         i < len;
-        i++, ii = ii + cut
+        i++, j += cut
       ) {
-        var para = document.createElement("textarea");
-        if (cut == 3) {
-          var node = X[ii] + "\n" + X[ii + 1] + "\n" + X[ii + 2];
-        } else {
-          var node =
-            X[ii] + "\n" + X[ii + 1] + "\n" + X[ii + 2] + "\n" + X[ii + 3];
-        }
-
-        node = document.createTextNode(node);
-        para.setAttribute("rows", cut + 1);
-        para.setAttribute("cols", "20");
-        para.appendChild(node);
-        document.getElementById("abc").appendChild(para);
+        var text = arr[j] + "\n"
+          + (arr[j + 1] || "") + "\n"
+          + (arr[j + 2] || "");
+        if (cut == 4) { text += "\n" + (arr[j + 3] || ""); }
+        var ta = document.createElement("textarea");
+        ta.setAttribute("rows", cut + 1);
+        ta.setAttribute("cols", "20");
+        ta.appendChild(document.createTextNode(text));
+        document.getElementById("result_content").appendChild(ta);
       }
-      document.getElementById("jieguo").value = X.join("\n");
+      document.getElementById("result").value = arr.join("\n");
     }
   </script>
 </head>
@@ -98,17 +92,17 @@
       <td>
         <fieldset>
           <legend>待分組項目</legend>
-          <textarea cols="30" rows="4" id="daifenzu"></textarea><br />
+          <textarea cols="30" rows="4" id="sort_result"></textarea><br />
           <label><input type="radio" name="cut" id="cut4" value="4" checked="checked" />四項一組</label>
           <label><input type="radio" name="cut" id="cut3" value="3" />三項一組</label><br />
-          <input type="button" value="隨機分組" onClick="RAND()" />
+          <input type="button" value="隨機分組" onClick="data_random()" />
         </fieldset>
       </td>
 
       <td>
         <fieldset>
           <legend>結果（保存用）</legend>
-          <textarea cols="30" rows="7" id="jieguo"></textarea>
+          <textarea cols="30" rows="7" id="result"></textarea>
         </fieldset>
       </td>
     </tr>
@@ -117,7 +111,7 @@
   <hr />
   <fieldset>
     <legend>結果展示</legend>
-    <div id="abc">
+    <div id="result_content">
       [待分組項目]：要分組的項目，每項一行<br />
       【重要】[結果（保存用）]，需保存出來！
     </div>
