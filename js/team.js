@@ -89,22 +89,26 @@ window.webobj = {
 		window.webobj.args.cid = window.webobj.teamdata.cid;
 
 		//讀取信息
-		if (window.webobj.teamdata.img != null && window.webobj.teamdata.img != "") {
+		if (window.webobj.teamdata.img != null
+			&& window.webobj.teamdata.img != "") {
 			document.getElementById("show_img")
 				.setAttribute("src", window.webobj.teamdata.img);
 		}
 		$("#t_ps").val(window.webobj.teamdata.t_ps);
 
 		var status2text = {
-			"0": "不鴿",
-			"1": "可能鴿"
+			"0": "可能鴿",
+			"1": "不鴿"
 		};
 		var status = window.webobj.teamdata.t_type;
-		var status_text = "不鴿"
+		var status_text = "可能鴿"
 		if (status2text.hasOwnProperty(status)) {
 			if (status == 1) {
-				status_text = "可能鴿"
+				status_text = "不鴿"
 				$("#team_type").prop("checked", true);
+			} else if (status == "" || status == null) {
+				status_text = "已退賽";
+				window.webobj.can_edit = false;
 			}
 		} else {
 			status_text = "已退賽";
@@ -124,7 +128,6 @@ window.webobj = {
 		).split(/\s+/);
 		document.getElementById('players').innerText = "";
 		return window.webobj.add_id(playerlist);
-
 	},
 	del_id: function () {
 		if (confirm("是否刪除列表最後的ID？（若誤操作，請不要保存，直接刷新）"))
@@ -172,6 +175,7 @@ window.webobj = {
 		target_e.find("input").val(this_text);
 	},
 	upload_img: function () {
+		/*
 		var returnmsg = {
 			'Access Denied.': '拒絕訪問',
 			'Upload file count limit.': '超過了最大可上傳次數',
@@ -184,6 +188,7 @@ window.webobj = {
 			'Image upload repeated limit.': '圖片已上傳過',
 			'Could not save uploaded file.': '無法保存文件'
 		};
+		*/
 
 		var fileObj = document.getElementById("smfile").files[0];
 		if (typeof fileObj == "undefined" || fileObj.size <= 0) {
