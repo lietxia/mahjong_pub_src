@@ -55,10 +55,17 @@ function _ABOUT(i) {
 //報名對話框
 function JOIN_CS() {
     var team_name = decodeURI($.trim(document.getElementById("tname").value));
-    var qq = document.getElementById("qq").value.replace(/[^\d]/g, "");
-    if (team_name == "" || qq == "") {
-        return alert("隊名不能為空,QQ只能是數字");
+    if (team_name == "") {
+        return alert("隊名不能為空");
     }
+
+    var qq = document.getElementById("qq").value.replace(/\s+/g, "");
+    var regxp = new RegExp(/\d{6,}(@qq\.com)?/i);
+    if (!regxp.test(qq)) {
+        return alert("暫時只支持QQ郵箱：示例一 123456@qq.com 或只輸入QQ號，示例二 123456");
+    }
+    qq = qq.replace(/[^\d]+/g, "");
+
     return window.open(
         window.hosturl + "join.php?cid="
         + window.ARGS.cid + "&qq="
