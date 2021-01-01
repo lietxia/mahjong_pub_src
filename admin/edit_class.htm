@@ -1,0 +1,131 @@
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>管理台</title>
+	<link rel="stylesheet" href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css' />
+	<style>
+		body,
+		input,
+		textarea {
+			font-family: "Microsoft JhengHei", "Meiryo", "Malgun Gothic", "Dotum", "MS PGothic", "PMingLiu", sans-serif;
+		}
+	</style>
+</head>
+
+<body class="bg-dark mt-4">
+	<div class="container">
+		<div class="card mb-3 shadow">
+			<div class="card-header">未使用隊伍</div>
+			<div class="card-body" id="t0">
+				<button type="button" class="btn btn-outline-secondary m-1">隊伍1</button>
+				<button type="button" class="btn btn-outline-secondary m-1">隊伍2</button>
+				<button type="button" class="btn btn-outline-secondary m-1">隊伍3</button>
+			</div>
+		</div>
+
+		<form class="mb-3">
+			<ul class="list-group shadow" id="list_class">
+				<li class="list-group-item">
+					<div class="form-row mb-2">
+						<div class="col">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">會場</span>
+								</div>
+								<input type="text" class="form-control" name="lobby[]" />
+							</div>
+						</div>
+						<div class="col">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">標記</span>
+								</div>
+								<input type="text" class="form-control" name="mark[]" />
+							</div>
+						</div>
+					</div>
+					<div id="t1">
+						<button type="button" class="btn btn-outline-primary m-1">隊伍4</button>
+						<button type="button" class="btn btn-outline-primary m-1">隊伍5</button>
+					</div>
+				</li>
+				<li class="list-group-item">
+					<div class="form-row mb-2">
+						<div class="col">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">會場</span>
+								</div>
+								<input type="text" class="form-control" name="lobby[]" />
+							</div>
+						</div>
+						<div class="col">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">標記</span>
+								</div>
+								<input type="text" class="form-control" name="mark[]" />
+							</div>
+						</div>
+					</div>
+					<div id="t2">
+						<button type="button" class="btn btn-outline-primary m-1">隊伍6</button>
+						<button type="button" class="btn btn-outline-primary m-1">隊伍7</button>
+					</div>
+				</li>
+			</ul>
+
+		</form>
+		<div class="card mb-3 shadow">
+			<div class="card-body">
+				<button type="button" class="btn btn-success m-1">添加組別</button>
+				<button type="button" class="btn btn-danger m-1">刪除組別</button>
+				<button type="button" class="btn btn-info m-1">隨機排序</button>
+				<div class="form-row mt-2">
+					<div class="col">
+						<textarea class="form-control" id="lobbys"></textarea>
+						<button type="button" class="btn btn-outline-primary mt-2">批量改會場</button>
+					</div>
+					<div class="col">
+						<textarea class="form-control" id="marks"></textarea>
+						<button type="button" class="btn btn-outline-primary mt-2">批量改標記</button>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<button type="button" class="btn btn-primary btn-block">保存分組</button>
+			</div>
+		</div>
+
+		<div class="alert alert-info alert-dismissible fade show" role="alert">
+			上下拖動或點右側按鈕，來調整出場順序<br />
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.10.2/Sortable.min.js" crossorigin="anonymous"></script>
+<script>
+	new Sortable(document.getElementById("list_class"), {
+		group: 'list_class',
+	});
+
+	new Sortable(document.getElementById("t0"), {
+		group: 'list_team',
+	});
+	new Sortable(document.getElementById("t1"), {
+		group: 'list_team',
+	});
+	new Sortable(document.getElementById("t2"), {
+		group: 'list_team',
+	});
+
+</script>
+
+</html>

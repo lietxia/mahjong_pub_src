@@ -157,12 +157,15 @@
 							return alert("未知錯誤");
 						}
 						if (json.status != "2") {
+							document.getElementById("log_div").innerHTML = "";
+							window.webobj.log_count = 0;
+							window.webobj.add_log();
 							return alert(json.status);
 						}
 						document.getElementById("i_type").value = "update";
 						document.getElementById("log_div").innerHTML = "";
 						window.webobj.log_count = 0;
-						window.webobj.add_log(json.data, true)
+						window.webobj.add_log(json.data)
 						var ta = document.getElementById("data2json");
 						ta.innerText = "";
 						var data2 = [];
@@ -170,10 +173,10 @@
 							var e = json.data[i];
 							data2[i] = [
 								"",
-								e[0] + " " + (e[2] / 1000),
-								e[3] + " " + (e[5] / 1000),
-								e[6] + " " + (e[8] / 1000),
-								e[9] + " " + (e[11] / 1000),
+								e[0] + " " + (e[1] - 100000) / 1000,
+								e[3] + " " + (e[4] - 100000) / 1000,
+								e[6] + " " + (e[7] - 100000) / 1000,
+								e[9] + " " + (e[10] - 100000) / 1000,
 								"", e[12].substring(35)
 							]
 						}
@@ -227,7 +230,7 @@
 				},
 				add_log: function (arr = [["", "", "", "", "", "", "", "", "", "", "", "", ""]]) {
 					//var arr = [["name1", "p1", "s1", "name2", "p2", "s2", "name3", "p3", "s3", "name4", "p4", "s4", "url"]];
-					var earr1 = ["選手名", "成績", "得失"];
+					var earr1 = ["", "成績", "得失"];
 					var earr2 = ["name", "point", "score"];
 					var target = document.getElementById("log_div");
 					for (var k = 0; k < arr.length; k++) {
