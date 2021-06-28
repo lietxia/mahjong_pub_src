@@ -24,7 +24,8 @@ $.getJSON(window.hosturl + "api/data.php?t=cs_list&cid=1", function (data) {
         ["沈阳線下日麻", 310806720, "https://jq.qq.com/?_wv=1027&k=ORBRRAYr"],
         ["西北竞技麻雀联盟", 620904958, "https://jq.qq.com/?_wv=1027&k=B1fMUwLN"],
         ["济南立直麻将", 835228612, "https://jq.qq.com/?_wv=1027&k=mxZ8HhEc"],
-        ["贵阳立直联盟", 1142202920, "https://jq.qq.com/?_wv=1027&k=ZOgWTdXi"]
+        ["贵阳立直联盟", 1142202920, "https://jq.qq.com/?_wv=1027&k=ZOgWTdXi"],
+        ["金华日麻面麻群", 877011936, "https://jq.qq.com/?_wv=1027&k=rSqrPPul"]
     ];
     var end_count = 0, running_count = 0;
     for (var i = 0; i < data.length; i++) {
