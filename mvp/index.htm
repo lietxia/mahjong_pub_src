@@ -55,7 +55,7 @@
       var target = document.getElementById("table_data");
       target.innerText = "";
       var table_data = isMain ? window.json_data[0] : window.json_data[1];
-      for (let i = 0; i <= table_data.length; i++) {
+      for (let i = 0; i < table_data.length; i++) {
         const e = table_data[i];
         let tr = document.createElement("tr"),
           th = document.createElement("th");
