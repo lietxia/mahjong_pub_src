@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <title>全國聯賽TI5 MVP榜</title>
+</head>
+
+<body>
+  <div class="container text-center mt-3">
+
+    <h1>全國聯賽TI5 MVP榜 <span class="badge bg-secondary" id="my_badge">主級</span></h1>
+    <button type="button" class="btn btn-primary" onclick="show_data()">主級</button>
+    <button type="button" class="btn btn-primary" onclick="show_data(false)">次級</button>
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+      MVP值的计算方法：<br>
+      MVP值=(净得点÷10000)+(顺位赏)<br>
+      顺位赏=两个半庄点数合计，你排第几位。1到4位依次为: +2 +1 +0 -2<br>
+      【例】鹿老渡先锋【Gray】第一半庄+40200，第二半庄+43900。是1位<br>
+      MVP值=(40200+43900)/10000+2=(10.41)
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <table class="table table-striped table-hover table-bordered table-sm mt-3 text-cent">
+      <thead>
+        <tr>
+          <th scope="col">名次</th>
+          <th scope="col">選手</th>
+          <th scope="col">隊伍</th>
+          <th scope="col">MVP值</th>
+          <th scope="col">對戰數</th>
+
+        </tr>
+      </thead>
+      <tbody id="table_data">
+      </tbody>
+    </table>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <script>
+    window.json_data = {};
+    function show_data(isMain = true) {
+      document.getElementById("my_badge").innerText = isMain ? "主級" : "次級";
+      var target = document.getElementById("table_data");
+      target.innerText = "";
+      var table_data = isMain ? window.json_data[0] : window.json_data[1];
+      var i = 0;
+      for (const name in table_data) {
+        if (Object.hasOwnProperty.call(table_data, name)) {
+          const e = table_data[name];
+          let tr = document.createElement("tr"),
+            th = document.createElement("th");
+          th.innerText = ++i;
+          tr.appendChild(th);
+          let td = document.createElement("td");
+          td.innerText = name
+          tr.appendChild(td);
+          for (let j = 0; j < 3; j++) {
+            let td = document.createElement("td");
+            td.innerText = (j === 1) ? e[j] / 100 : e[j];
+            tr.appendChild(td);
+          }
+          target.appendChild(tr);
+        }
+      }
+
+    }//function end
+    window.onload = function () {
+      var url = "https://000.mk/mvp/mvp.php"
+      var request = new XMLHttpRequest();
+      request.open("get", url);
+      request.send(null);
+      request.onload = function () {
+        if (request.status == 200) {
+          window.json_data = JSON.parse(request.responseText);
+          console.log(window.json_data);
+          show_data();
+        } else {
+          alert("载入数据失败，请刷新");
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
